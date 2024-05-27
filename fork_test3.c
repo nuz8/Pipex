@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 21:11:44 by pamatya           #+#    #+#             */
-/*   Updated: 2024/05/26 21:10:05 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/05/26 22:47:53 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int	main(int argc, char *argv[])
 {
-	int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+	int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21};
 	int n = sizeof(arr) / sizeof(arr[0]);
 	int start, end;
 	int fd[2];
@@ -68,6 +68,8 @@ int	main(int argc, char *argv[])
 		i++;
 	}
 	printf("Calculated partial sum: %d\n", sum);
+	if (id != 0 || id2 != 0)
+		wait(NULL);
 
 	if (id == 0)
 	{
@@ -76,22 +78,21 @@ int	main(int argc, char *argv[])
 		{
 			// Grandchild process
 			close(fd[0]);
-			if (write(fd[2], &sum, sizeof(sum)) == -1)
-				return (close(fd[2]), 3);
-			close(fd[2]);
+			if (write(fd[1], &sum, sizeof(sum)) == -1)
+				return (close(fd[1]), 3);
+			close(fd[1]);
 		}
 		else
 		{
 			// Child process
+			if (read(fd[0], &grandchild_sum, sizeof(grandchild_sum)) == -1)
+				return (close(fd[0]), close(fd[1]), 4);
 			close(fd[0]);
-			close(fd[2]);
-			if (read(fd[1], &grandchild_sum, sizeof(grandchild_sum)) == -1)
-				return (close(fd[1]), 4);
-			close(fd[1]);
 
-			sum += grandchild_sum;
+			sum_child = sum + grandchild_sum;
 			if (write(fd[1], &sum_child, sizeof(sum_child)) == -1)
 				return (close(fd[1]), 3);
+			close(fd[1]);
 		}
 	}
 	else
@@ -104,8 +105,7 @@ int	main(int argc, char *argv[])
 
 		total_sum = sum + sum_child;
 		printf("Total sum: %d\n", total_sum);
-		wait(NULL);
 	}
-	
+
 	return (0);
 }
