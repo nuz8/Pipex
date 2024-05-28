@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile_printf                                    :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 14:30:19 by pamatya           #+#    #+#              #
-#    Updated: 2024/05/22 18:11:35 by pamatya          ###   ########.fr        #
+#    Updated: 2024/05/27 21:38:35 by pamatya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,11 @@ CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror
 RM		=	rm -f
 
-NAME	=	libftprintf.a
-FTDIR	=	Libft
+NAME	=	pipex
 FT		=	libft.a
+PRNT	= 	libftprintf.a
+FTDIR	=	Libft
+PRNTDIR	=	ft_printf
 UTIL	=	./Utils_ft_printf
 
 SRCS	=	ft_printf.c	$(UTIL)/ft_putdec.c $(UTIL)/ft_puthex.c \

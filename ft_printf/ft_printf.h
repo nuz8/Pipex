@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:21:10 by pamatya           #+#    #+#             */
-/*   Updated: 2024/04/30 17:03:58 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/05/28 01:46:50 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include "./Libft/libft.h"
+# include "../Libft/libft.h"
 
 int		ft_printf(const char *str, ...);
 int		ft_putchr(unsigned char c);
