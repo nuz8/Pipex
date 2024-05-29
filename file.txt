@@ -1,0 +1,17 @@
+fd[1] after dup2: 5
+  16 pamatya  2024_heilbronn    544 May 28 23:52 .
+drwxr-xr-x   4 pamatya  2024_heilbronn    136 May 22 18:06 ..
+drwxr-xr-x  12 pamatya  2024_heilbronn    408 May 28 04:46 .git
+drwxr-xr-x  48 pamatya  2024_heilbronn   1632 May 28 01:51 Libft
+-rw-r--r--   1 pamatya  2024_heilbronn   1542 May 27 21:38 Makefile
+-rwxr-xr-x   1 pamatya  2024_heilbronn  50504 May 28 04:35 a.out
+-rw-r--r--   1 pamatya  2024_heilbronn      0 May 28 23:52 file.txt
+-rw-r--r--   1 pamatya  2024_heilbronn   1780 May 26 22:19 fork_test.c
+-rw-r--r--   1 pamatya  2024_heilbronn   1909 May 26 21:03 fork_test2.c
+-rw-r--r--   1 pamatya  2024_heilbronn   2536 May 26 22:47 fork_test3.c
+-rw-r--r--   1 pamatya  2024_heilbronn   1616 May 28 23:51 ft_execute.c
+drwxr-xr-x   7 pamatya  2024_heilbronn    238 May 28 01:51 ft_printf
+-rw-r--r--   1 pamatya  2024_heilbronn    107 May 27 23:29 infile
+-rw-r--r--   1 pamatya  2024_heilbronn   2627 May 28 23:40 pipex.c
+-rw-r--r--   1 pamatya  2024_heilbronn   1223 May 28 01:45 pipex.h
+-rw-r--r--   1 pamatya  2024_heilbronn   2731 May 28 23:52 pipex2.c

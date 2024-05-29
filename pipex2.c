@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:30:53 by pamatya           #+#    #+#             */
-/*   Updated: 2024/05/28 23:40:55 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/05/28 23:52:13 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_close(int fd[2])
 	close(fd[1]);
 }
 
-int	main(int argc, char *argv[])
+int	main(void)
 {
 	int		fd[2];
 	int		infile;
@@ -30,8 +30,8 @@ int	main(int argc, char *argv[])
 	char	*envp;
 	
 	// Check if the number of arguments to be accepted is this
-	if (argc != 5)
-		return (write(2, "Invalid no. of arg.s\n", 21), 1);
+	// if (argc != 5)
+	// 	return (write(2, "Invalid no. of arg.s\n", 21), 1);
 	
 	pipe(fd);
 	// fd[0] is the read end of the pipe
@@ -45,8 +45,8 @@ int	main(int argc, char *argv[])
 	{
 		// Child process 1
 		// Code for infile with input redirection, and check if it can be opened
-		if ((infile = open(argv[1], O_RDONLY)) == -1)
-			return (write(2, "Couldn't open infile\n", 21), ft_close(fd), 2);
+		// if ((infile = open(argv[1], O_RDONLY)) == -1)
+		// 	return (write(2, "Couldn't open infile\n", 21), ft_close(fd), 2);
 
 		// Code for infile with input redirection, and check if it can be opened
 		dup2(infile, STDIN_FILENO);
@@ -54,8 +54,7 @@ int	main(int argc, char *argv[])
 		close(infile);
 		ft_close(fd);
 		// execve(argv[2], argv + 2, NULL);
-
-
+		execve("/bin/ls", (char *[]){"ls", NULL}, NULL);
 	}
 	if ((pid2 = fork()) == -1)
 		return (write(2, "Couldn't fork\n", 14), ft_close(fd), 3);
@@ -64,8 +63,8 @@ int	main(int argc, char *argv[])
 		// Child process 2
 		// Check if outfile exists, and create it if it doesn't.
 		// if ((outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)	// Check what the last flag does and what the permissions are
-		if ((outfile = open(argv[4], O_WRONLY | O_CREAT, 0777)) == -1)
-			return (write(2, "Couldn't open outfile\n", 22), ft_close(fd), 4);
+		// if ((outfile = open(argv[4], O_WRONLY | O_CREAT, 0777)) == -1)
+		// 	return (write(2, "Couldn't open outfile\n", 22), ft_close(fd), 4);
 		
 		// Code for outfile with output redirection
 		dup2(outfile, STDOUT_FILENO);
@@ -74,6 +73,7 @@ int	main(int argc, char *argv[])
 		ft_close(fd);
 		waitpid(pid1, NULL, 0);
 		// execve(argv[3], argv + 3, NULL);
+		execve("/bin/grep", (char *[]){"grep", NULL}, NULL);
 	}
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_execute.c                                       :+:      :+:    :+:   */
+/*   ft_execute2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 01:35:14 by pamatya           #+#    #+#             */
-/*   Updated: 2024/05/29 00:33:02 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/05/29 00:34:23 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int main(void)
 	int		fd[2];
 	
 	pipe(fd);
-	fd[1] = open("next_file.txt", O_WRONLY | O_CREAT, 0777);
-	ft_printf("fd[1] before dup2: %d\n", fd[1]);
-	dup2(fd[1], STDOUT_FILENO);
-	ft_printf("fd[1] after dup2: %d\n", fd[1]);
+	fd[0] = open("next_file.txt", O_RDONLY);
+	ft_printf("fd[0]: %d\n", fd[0]);
+	dup2(fd[0], STDIN_FILENO);
+	ft_printf("fd[1]: %d\n", fd[1]);
 	close(fd[0]);
 	close(fd[1]);
 	
@@ -51,7 +51,7 @@ int main(void)
 	
 	// Execute the command "ls -l"
 	// execve("/bin/ls", (char *[]){"ls", "-la", NULL}, envp);
-	execve("/bin/ls", (char *[]){"ls", NULL}, environ);
+	execve("/usr/bin/grep", (char *[]){"grep", "fork", NULL}, environ);
 	ft_printf("Error: This should not be printed...\n");	
 	return (0);
 }
