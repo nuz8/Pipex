@@ -1,3 +1,0 @@
--rw-r--r--   1 pamatya  2024_heilbronn   2627 May 28 23:40 pipex.c
--rw-r--r--   1 pamatya  2024_heilbronn   1223 May 28 01:45 pipex.h
--rw-r--r--   1 pamatya  2024_heilbronn   2731 May 28 23:52 pipex2.c

@@ -1,32 +1,18 @@
 fd[1] after dup2: 5
-Libft
-Makefile
-a.out
-file.txt
-fork_test.c
-fork_test2.c
-fork_test3.c
-ft_execute.c
-ft_execute2.c
-ft_printf
-infile
-next_file.txt
-pipex.c
-pipex.h
-pipex2.c
-atya  2024_heilbronn    408 May 28 04:46 .git
+total 176
+drwxr-xr-x  16 pamatya  2024_heilbronn    544 May 29 02:37 .
+drwxr-xr-x   4 pamatya  2024_heilbronn    136 May 22 18:06 ..
+drwxr-xr-x  12 pamatya  2024_heilbronn    408 May 29 02:28 .git
 drwxr-xr-x  48 pamatya  2024_heilbronn   1632 May 28 01:51 Libft
 -rw-r--r--   1 pamatya  2024_heilbronn   1542 May 27 21:38 Makefile
--rwxr-xr-x   1 pamatya  2024_heilbronn  50672 May 29 00:32 a.out
+-rwxr-xr-x   1 pamatya  2024_heilbronn  50632 May 29 02:37 a.out
 -rw-r--r--   1 pamatya  2024_heilbronn   1087 May 29 00:10 file.txt
--rw-r--r--   1 pamatya  2024_heilbronn   1780 May 26 22:19 fork_test.c
--rw-r--r--   1 pamatya  2024_heilbronn   1909 May 26 21:03 fork_test2.c
--rw-r--r--   1 pamatya  2024_heilbronn   2536 May 26 22:47 fork_test3.c
--rw-r--r--   1 pamatya  2024_heilbronn   1848 May 29 00:32 ft_execute.c
--rw-r--r--   1 pamatya  2024_heilbronn   1834 May 29 00:28 ft_execute2.c
+-rw-r--r--   1 pamatya  2024_heilbronn   1841 May 29 02:37 ft_execute.c
+-rw-r--r--   1 pamatya  2024_heilbronn   1817 May 29 00:34 ft_execute2.c
 drwxr-xr-x   7 pamatya  2024_heilbronn    238 May 28 01:51 ft_printf
 -rw-r--r--   1 pamatya  2024_heilbronn    107 May 27 23:29 infile
--rwxr-xr-x   1 pamatya  2024_heilbronn     20 May 29 00:32 next_file.txt
+-rwxr-xr-x   1 pamatya  2024_heilbronn     20 May 29 02:37 next_file.txt
 -rw-r--r--   1 pamatya  2024_heilbronn   2627 May 28 23:40 pipex.c
 -rw-r--r--   1 pamatya  2024_heilbronn   1223 May 28 01:45 pipex.h
--rw-r--r--   1 pamatya  2024_heilbronn   2731 May 28 23:52 pipex2.c
+-rw-r--r--   1 pamatya  2024_heilbronn   2733 May 29 02:32 pipex2.c
+drwxr-xr-x   5 pamatya  2024_heilbronn    170 May 29 00:44 test_files
