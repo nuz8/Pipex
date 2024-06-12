@@ -6,13 +6,16 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:30:53 by pamatya           #+#    #+#             */
-/*   Updated: 2024/05/29 08:38:10 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/05/29 13:38:01 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 void	ft_close(int fd[2]);
+void	ft_free_2D(char **memory);
+char	**get_paths(char **envp);
+char	*get_binary_path(char *cmd, char **paths);
 
 void	ft_close(int fd[2])
 {
@@ -83,6 +86,7 @@ int	main(int argc, char **argv, char **envp)
 	char	**cmd2;
 	char	*bin_path1;
 	char	*bin_path2;
+	// int		i;
 	
 	// Check if the number of arguments to be accepted is this
 	if (argc != 5)
@@ -105,6 +109,19 @@ int	main(int argc, char **argv, char **envp)
 	bin_path2 = get_binary_path(cmd2[0], paths);
 	if (!bin_path2)
 		return (ft_free_2D(paths), ft_free_2D(cmd1), free(bin_path1), ft_free_2D(cmd2), write(2, "Couldn't get binary path\n", 25), 2);
+	
+	// i = 0;
+	// while (envp[i])
+	// 	ft_printf("%s\n", envp[i++]);
+	
+	// i = 0;
+	// while (paths[i])
+	// 	ft_printf("%s\n", paths[i++]);
+
+	// ft_printf("bin_path1: %s\n", bin_path1);
+	// ft_printf("bin_path2: %s\n", bin_path2);
+	// ft_printf("cmd1[0]: %s\n", cmd1[0]);
+	// ft_printf("cmd2[0]: %s\n", cmd2[0]);
 	
 	pipe(fd);
 	// fd[0]	-	read end
@@ -129,6 +146,7 @@ int	main(int argc, char **argv, char **envp)
 
 		// execve(argv[2], argv + 2, NULL);
 		execve(bin_path1, cmd1, envp);
+		ft_printf("The first command executed correctly\n");
 	}
 	if ((pid2 = fork()) == -1)
 		return (write(2, "Couldn't fork\n", 14), ft_close(fd), 3);
