@@ -6,14 +6,14 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 01:35:14 by pamatya           #+#    #+#             */
-/*   Updated: 2024/05/29 00:34:23 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/13 13:27:41 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 // #include <stdio.h>
-#include "pipex.h"
+#include "../include/pipex.h"
 
 extern char **environ;
 

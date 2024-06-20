@@ -6,11 +6,11 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:30:53 by pamatya           #+#    #+#             */
-/*   Updated: 2024/05/29 07:56:24 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/18 17:19:21 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 
 void	ft_close(int fd[2]);
 
@@ -39,7 +39,6 @@ int	main(void)
 	
 	if ((pid1 = fork()) == -1)
 		return (write(2, "Couldn't fork\n", 14), ft_close(fd), 3);
-
 	if (pid1 == 0)
 	{
 		// Child process 1
@@ -48,7 +47,7 @@ int	main(void)
 		// 	return (write(2, "Couldn't open infile\n", 21), ft_close(fd), 2);
 
 		// Code for infile and check if it can be opened
-		if ((infile = open("next_file.txt", O_RDONLY)) == -1)
+		if ((infile = open("./io_files/infile.txt", O_RDONLY)) == -1)
 			return (write(2, "Couldn't open infile\n", 21), ft_close(fd), 2);
 		
 		// Code for input/output redirection with infile
@@ -71,7 +70,7 @@ int	main(void)
 		// 	return (write(2, "Couldn't open outfile\n", 22), ft_close(fd), 4);
 
 		// if ((outfile = open("Outfile.txt", O_WRONLY | O_CREAT, 0777)) == -1)
-		if ((outfile = open("Outfile.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777)) == -1)	// Check what the last flag does and what the permissions are
+		if ((outfile = open("./io_files/outfile.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)	// Check what the last flag does and what the permissions are
 			return (write(2, "Couldn't open outfile\n", 22), ft_close(fd), 4);
 		
 		// Code for outfile with input/output redirection
@@ -84,7 +83,7 @@ int	main(void)
 		// waitpid(pid1, NULL, 0);	// Check why this is needed even though the program seems to work without it
 
 		// execve(argv[3], argv + 3, NULL);
-		execve("/usr/bin/grep", (char *[]){"grep", "file", NULL}, NULL);
+		execve("/usr/bin/grep", (char *[]){"grep", "7 pamatya", NULL}, NULL);
 	}
 	ft_close(fd);
 	waitpid(pid1, NULL, 0);
