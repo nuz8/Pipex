@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:30:53 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/20 14:56:57 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/20 15:25:18 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ size_t	param_count(char **cmd)
 		if ((*cmd)[0] == '\"' || (*cmd)[0] == '\'')
 		{
 			word_len = ft_strlen(*cmd);
-			while ((*cmd)[word_len - 1] != "\"" && (*cmd)[word_len - 1] != "\'")
+			while ((*cmd)[word_len - 1] != '\"' && (*cmd)[word_len - 1] != '\'')
 			{
 				cmd++;
 				word_len = ft_strlen(*cmd);
@@ -103,124 +103,89 @@ size_t	param_count(char **cmd)
 	return (total_words);
 }
 
-// Mimics realloc function without using ft_memmove
-void	*ft_realloc(void *ptr, size_t size)
-{
-	unsigned char	*ptr_cpy;
-	unsigned char	*new_ptr;
-	unsigned char	*new_ptr_cpy;
+// // Function to "weave" two strings together separated by the "separator" character.
+// // It weaves str1 and str2 together into a new_str, frees the first string and returns the new_string
+// char	*ft_weave(char *str1, char *str2, char separater)
+// {
+// 	char	*new_str;
+// 	char	*str1_cpy;
+// 	size_t	new_len;
+// 	size_t	i;
 
-	ptr_cpy = (unsigned char *)ptr;
-	new_ptr = malloc(size + 1);
-	if (!new_ptr)
-		return (NULL);
-	new_ptr_cpy = new_ptr;
-	while (size--)
-		*new_ptr++ = *ptr_cpy++;
-	*new_ptr = '\0';
-	free(ptr);
-	ptr = new_ptr_cpy;
-	return (ptr);
-}
+// 	str1_cpy = str1;
+// 	new_len = ft_strlen(str1) + ft_strlen(str2);
+// 	if (separater)
+// 		new_len++;
+// 	new_str = (char *)malloc((new_len + 1) * sizeof(char));
+// 	if (!new_str)
+// 		return (NULL);
+// 	i = 0;
+// 	while (*str1)
+// 		new_str[i++] = *str1++;
+// 		// new_str[i++] = *(*str1)++;
+// 	if (separater)
+// 		new_str[i++] = separater;
+// 	while (str2)
+// 		new_str[i++] = *str2++;
+// 	new_str[i] = '\0';
+// 	return (free(str1_cpy), new_str);
+// }
 
-// Mimics realloc function using ft_memmove
-void	*ft_realloc(void *ptr, size_t size)
-{
-	unsigned char	*new_ptr;
+// // Same as ft_weave, but changes the address to which str1 points, and returns the length of the new string.
+// // Have to verify that the code works as intended, or a double pointer is required to achieve this
+// size_t	ft_weave2(char *str1, char *str2, char separater)
+// {
+// 	char	*new_str;
+// 	char	*str1_cpy;
+// 	size_t	new_len;
+// 	size_t	i;
 
-	new_ptr = malloc(size + 1);
-	if (!new_ptr)
-		return (NULL);
-	ft_memmove(new_ptr, ptr, size);
-	new_ptr[size] = '\0';
-	free(ptr);
-	ptr = new_ptr;
-	return (ptr);
-}
+// 	str1_cpy = str1;
+// 	new_len = ft_strlen(str1) + ft_strlen(str2);
+// 	if (separater)
+// 		new_len++;
+// 	new_str = (char *)malloc((new_len + 1) * sizeof(char));
+// 	if (!new_str)
+// 		return (NULL);
+// 	i = 0;
+// 	while (*str1)
+// 		new_str[i++] = *str1++;
+// 	if (separater)
+// 		new_str[i++] = separater;
+// 	while (str2)
+// 		new_str[i++] = *str2++;
+// 	new_str[i] = '\0';
+// 	return (free(str1_cpy), str1_cpy = new_str, new_len);
+// }
 
-// Function to "weave" two strings together separated by the "separator" character.
-// It weaves str1 and str2 together into a new_str, frees the first string and returns the new_string
-char	*ft_weave(char *str1, char *str2, char separater)
-{
-	char	*new_str;
-	char	*str1_cpy;
-	size_t	new_len;
-	size_t	i;
+// char	**ft_parse(char **cmd)
+// {
+// 	char	**parsed_cmd;
+// 	size_t	i;
 
-	str1_cpy = str1;
-	new_len = ft_strlen(str1) + ft_strlen(str2);
-	if (separater)
-		new_len++;
-	new_str = (char *)malloc((new_len + 1) * sizeof(char));
-	if (!new_str)
-		return (NULL);
-	i = 0;
-	while (*str1)
-		new_str[i++] = *str1++;
-		// new_str[i++] = *(*str1)++;
-	if (separater)
-		new_str[i++] = separater;
-	while (str2)
-		new_str[i++] = *str2++;
-	new_str[i] = '\0';
-	return (free(str1_cpy), new_str);
-}
-
-// Same as ft_weave, but changes the address to which str1 points, and returns the length of the new string.
-// Have to verify that the code works as intended, or a double pointer is required to achieve this
-size_t	ft_weave2(char *str1, char *str2, char separater)
-{
-	char	*new_str;
-	char	*str1_cpy;
-	size_t	new_len;
-	size_t	i;
-
-	str1_cpy = str1;
-	new_len = ft_strlen(str1) + ft_strlen(str2);
-	if (separater)
-		new_len++;
-	new_str = (char *)malloc((new_len + 1) * sizeof(char));
-	if (!new_str)
-		return (NULL);
-	i = 0;
-	while (*str1)
-		new_str[i++] = *str1++;
-	if (separater)
-		new_str[i++] = separater;
-	while (str2)
-		new_str[i++] = *str2++;
-	new_str[i] = '\0';
-	return (free(str1_cpy), str1_cpy = new_str, new_len);
-}
-
-char	**ft_parse(char **cmd)
-{
-	char	**parsed_cmd;
-	size_t	i;
-
-	i = param_count((*cmd));
-	parsed_cmd = (char **)malloc((i + 1) * sizeof(char *));
-	if (!parsed_cmd)
-		return (NULL);
-	parsed_cmd[i] = NULL;
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i][0] != '\"' && cmd[i][0] != '\'')
-		{
-			*parsed_cmd = ft_strdup(cmd[i++]);
-			if (!(*parsed_cmd++))
-				return (ft_free_2D(parsed_cmd), NULL);
-		}
-		else
-		{
-			while (cmd[i])
-			{
-				parsed_cmd = ft_weave(parsed_cmd, cmd[i++], ' ');
-				if (!(*parsed_cmd))
-					return (ft_free_2D(parsed_cmd), NULL);
-			}
-		}
-	}
-	return (ft_free_2D(cmd), parsed_cmd);
-}
+// 	i = param_count((*cmd));
+// 	parsed_cmd = (char **)malloc((i + 1) * sizeof(char *));
+// 	if (!parsed_cmd)
+// 		return (NULL);
+// 	parsed_cmd[i] = NULL;
+// 	i = 0;
+// 	while (cmd[i])
+// 	{
+// 		if (cmd[i][0] != '\"' && cmd[i][0] != '\'')
+// 		{
+// 			*parsed_cmd = ft_strdup(cmd[i++]);
+// 			if (!(*parsed_cmd++))
+// 				return (ft_free_2D(parsed_cmd), NULL);
+// 		}
+// 		else
+// 		{
+// 			while (cmd[i])
+// 			{
+// 				parsed_cmd = ft_weave(parsed_cmd, cmd[i++], ' ');
+// 				if (!(*parsed_cmd))
+// 					return (ft_free_2D(parsed_cmd), NULL);
+// 			}
+// 		}
+// 	}
+// 	return (ft_free_2D(cmd), parsed_cmd);
+// }

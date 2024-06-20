@@ -6,7 +6,7 @@
 #    By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 14:30:19 by pamatya           #+#    #+#              #
-#    Updated: 2024/06/18 17:22:16 by pamatya          ###   ########.fr        #
+#    Updated: 2024/06/20 15:28:21 by pamatya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ EXEC_IN	=	./bin/$(NAME)
 INFILE	=	./io_files/infile.txt
 OUTFILE	=	./io_files/outfile.txt
 CMD1	=	cat
-C2_ARG	=	"file"
+C2_ARG	=	"exec"
 CMD2	=	"grep $(C2_ARG)"
 
 SRCS	=	./src/pipex_main.c ./src/pipex_utils.c
