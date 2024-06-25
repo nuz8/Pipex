@@ -6,12 +6,14 @@
 #    By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 14:30:19 by pamatya           #+#    #+#              #
-#    Updated: 2024/06/25 19:43:40 by pamatya          ###   ########.fr        #
+#    Updated: 2024/06/26 00:13:44 by pamatya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC		=	cc -g
+CC		=	cc
+# CC		=	cc -g
 # CC		=	cc -g -fsanitize=address
+
 CFLAGS	=	-Wall -Wextra -Werror
 RM		=	rm -f
 
@@ -24,11 +26,10 @@ EXEC_IN	=	./bin/$(NAME)
 INFILE	=	./io_files/infile.txt
 OUTFILE	=	./io_files/outfile.txt
 CMD1	=	cat
-C2_ARG	=	"file"
+C2_ARG	=	"exec"
 CMD2	=	"grep $(C2_ARG)"
-# CMD2	=	cat
 
-SRCS	=	./src/pipex_main.c ./src/pipex_utils.c
+SRCS	=	./src/pipex_main.c ./src/pipex_utils.c ./src/children.c ./src/fields.c
 
 OBJS	=	$(SRCS:.c=.o)
 

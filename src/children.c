@@ -6,17 +6,20 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 19:30:19 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/25 20:15:25 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/25 21:25:51 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	child_read(t_pipex *data);
-void	child_write(t_pipex *data);
-void	initialize_children(t_pipex *data);
+int	child_read(t_pipex *data);
+int	child_write(t_pipex *data);
+int	initiate_children(t_pipex *data);
 
-void	child_read(t_pipex *data)
+// data.pipe_fd[0]	-	read end
+// data.pipe_fd[1]	-	write end
+
+int	child_read(t_pipex *data)
 {
 	// Child process 1
 	// Code for infile with input redirection, and check if it can be opened
@@ -33,9 +36,10 @@ void	child_read(t_pipex *data)
 	// execve(argv[2], argv + 2, NULL);
 	execve(data->bin_path1, data->cmd1.str, data->env_vars);
 	ft_printf("1st command failed.\n");
+	return (1);
 }
 
-void	child_write(t_pipex *data)
+int	child_write(t_pipex *data)
 {
 	// Child process 2
 	// Check if outfile exists, and create it if it doesn't.
@@ -52,9 +56,10 @@ void	child_write(t_pipex *data)
 	// execve(argv[3], argv + 3, NULL);
 	execve(data->bin_path2, data->cmd2.str, data->env_vars);
 	ft_printf("2nd command failed.\n");
+	return (1);
 }
 
-void	initialize_children(t_pipex *data)
+int	initiate_children(t_pipex *data)
 {
 	pid_t	pid[2];
 
@@ -69,4 +74,5 @@ void	initialize_children(t_pipex *data)
 	ft_close(data->pipe_fd);
 	waitpid(pid[0], NULL, 0);
 	waitpid(pid[1], NULL, 0);
+	return (0);
 }
