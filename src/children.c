@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 19:26:54 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/20 20:58:57 by pamatya          ###   ########.fr       */
+/*   Created: 2024/06/25 19:30:19 by pamatya           #+#    #+#             */
+/*   Updated: 2024/06/25 19:46:54 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../include/pipex.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	child_process1(t_pipex *data, int fd[2])
 {
-	char	*j_str;
-	size_t	len;
-	size_t	i;
-
-	len = ft_strlen(s1) + ft_strlen(s2);
-	j_str = (char *)malloc((len + 1) * sizeof(char));
-	if (!j_str)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		if (i < ft_strlen(s1))
-			j_str[i] = s1[i];
-		else
-			j_str[i] = *s2++;
-		i++;
-	}
-	j_str[i] = '\0';
-	return (j_str);
+	
 }

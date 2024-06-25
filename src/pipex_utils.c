@@ -6,35 +6,24 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:30:53 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/20 15:25:18 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/24 00:41:41 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	ft_close(int fd[2]);
-void	ft_free_2D(char **memory);
+void	ft_close(int fd[]);
 char	**get_paths(char **envp);
 char	*get_binary_path(char *cmd, char **paths);
 size_t	param_count(char **cmd);
 char	*ft_weave(char *str1, char *str2, char separater);
 size_t	ft_weave2(char *str1, char *str2, char separater);
-char	**ft_parse(char **cmd);
+char	**ft_parse_back(char **cmd);
 
-void	ft_close(int fd[2])
+void	ft_close(int fd[])
 {
 	close(fd[0]);
 	close(fd[1]);
-}
-
-void	ft_free_2D(char **memory)
-{
-	size_t	i;
-
-	i = 0;
-	while (memory[i] != NULL)
-		free(memory[i++]);	
-	free(memory);
 }
 
 char	**get_paths(char **envp)
@@ -84,7 +73,7 @@ size_t	param_count(char **cmd)
 {
 	size_t	total_words;
 	size_t	word_len;
-	
+
 	total_words = 0;
 	while (*cmd)
 	{
@@ -103,89 +92,87 @@ size_t	param_count(char **cmd)
 	return (total_words);
 }
 
-// // Function to "weave" two strings together separated by the "separator" character.
-// // It weaves str1 and str2 together into a new_str, frees the first string and returns the new_string
-// char	*ft_weave(char *str1, char *str2, char separater)
-// {
-// 	char	*new_str;
-// 	char	*str1_cpy;
-// 	size_t	new_len;
-// 	size_t	i;
+// Function to "weave" two strings together separated by the "separator" character.
+// It weaves str1 and str2 together into a new_str, frees the first string and returns the new_string
+char	*ft_weave(char *str1, char *str2, char separater)
+{
+	char	*new_str;
+	char	*str1_cpy;
+	size_t	new_len;
+	size_t	i;
 
-// 	str1_cpy = str1;
-// 	new_len = ft_strlen(str1) + ft_strlen(str2);
-// 	if (separater)
-// 		new_len++;
-// 	new_str = (char *)malloc((new_len + 1) * sizeof(char));
-// 	if (!new_str)
-// 		return (NULL);
-// 	i = 0;
-// 	while (*str1)
-// 		new_str[i++] = *str1++;
-// 		// new_str[i++] = *(*str1)++;
-// 	if (separater)
-// 		new_str[i++] = separater;
-// 	while (str2)
-// 		new_str[i++] = *str2++;
-// 	new_str[i] = '\0';
-// 	return (free(str1_cpy), new_str);
-// }
+	str1_cpy = str1;
+	new_len = ft_strlen(str1) + ft_strlen(str2);
+	if (separater)
+		new_len++;
+	new_str = (char *)malloc((new_len + 1) * sizeof(char));
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	while (*str1)
+		new_str[i++] = *str1++;
+		// new_str[i++] = *(*str1)++;
+	if (separater)
+		new_str[i++] = separater;
+	while (str2)
+		new_str[i++] = *str2++;
+	new_str[i] = '\0';
+	return (free(str1_cpy), new_str);
+}
 
-// // Same as ft_weave, but changes the address to which str1 points, and returns the length of the new string.
-// // Have to verify that the code works as intended, or a double pointer is required to achieve this
-// size_t	ft_weave2(char *str1, char *str2, char separater)
-// {
-// 	char	*new_str;
-// 	char	*str1_cpy;
-// 	size_t	new_len;
-// 	size_t	i;
+// Same as ft_weave, but changes the address to which str1 points, and returns the length of the new string.
+// Have to verify that the code works as intended, or a double pointer is required to achieve this
+size_t	ft_weave2(char *str1, char *str2, char separater)
+{
+	char	*new_str;
+	char	*str1_cpy;
+	size_t	new_len;
+	size_t	i;
 
-// 	str1_cpy = str1;
-// 	new_len = ft_strlen(str1) + ft_strlen(str2);
-// 	if (separater)
-// 		new_len++;
-// 	new_str = (char *)malloc((new_len + 1) * sizeof(char));
-// 	if (!new_str)
-// 		return (NULL);
-// 	i = 0;
-// 	while (*str1)
-// 		new_str[i++] = *str1++;
-// 	if (separater)
-// 		new_str[i++] = separater;
-// 	while (str2)
-// 		new_str[i++] = *str2++;
-// 	new_str[i] = '\0';
-// 	return (free(str1_cpy), str1_cpy = new_str, new_len);
-// }
+	str1_cpy = str1;
+	new_len = ft_strlen(str1) + ft_strlen(str2);
+	if (separater)
+		new_len++;
+	new_str = (char *)malloc((new_len + 1) * sizeof(char));
+	if (!new_str)
+		return (-1);
+	i = 0;
+	while (*str1)
+		new_str[i++] = *str1++;
+	if (separater)
+		new_str[i++] = separater;
+	while (str2)
+		new_str[i++] = *str2++;
+	new_str[i] = '\0';
+	return (free(str1_cpy), str1_cpy = new_str, new_len);
+}
 
-// char	**ft_parse(char **cmd)
-// {
-// 	char	**parsed_cmd;
-// 	size_t	i;
+char	**ft_parse_back(char **cmd)
+{
+	char	**parsed_cmd;
+	size_t	i;
 
-// 	i = param_count((*cmd));
-// 	parsed_cmd = (char **)malloc((i + 1) * sizeof(char *));
-// 	if (!parsed_cmd)
-// 		return (NULL);
-// 	parsed_cmd[i] = NULL;
-// 	i = 0;
-// 	while (cmd[i])
-// 	{
-// 		if (cmd[i][0] != '\"' && cmd[i][0] != '\'')
-// 		{
-// 			*parsed_cmd = ft_strdup(cmd[i++]);
-// 			if (!(*parsed_cmd++))
-// 				return (ft_free_2D(parsed_cmd), NULL);
-// 		}
-// 		else
-// 		{
-// 			while (cmd[i])
-// 			{
-// 				parsed_cmd = ft_weave(parsed_cmd, cmd[i++], ' ');
-// 				if (!(*parsed_cmd))
-// 					return (ft_free_2D(parsed_cmd), NULL);
-// 			}
-// 		}
-// 	}
-// 	return (ft_free_2D(cmd), parsed_cmd);
-// }
+	i = param_count((cmd));
+	parsed_cmd = (char **)malloc((i + 1) * sizeof(char *));
+	if (!parsed_cmd)
+		return (NULL);
+	parsed_cmd[i] = NULL;
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i][0] != '\"' && cmd[i][0] != '\'')
+		{
+			*parsed_cmd = ft_strdup(cmd[i++]);
+			if (!(*parsed_cmd++))
+				return (ft_free2D(parsed_cmd), NULL);
+		}
+		else
+		{
+			ft_weave(*parsed_cmd, cmd[i], ' ');
+			if (!(*parsed_cmd))
+				return (ft_free2D(parsed_cmd), NULL);
+		}
+	}
+	// return (ft_free2D(cmd), parsed_cmd);
+	return (cmd = parsed_cmd, cmd);
+}

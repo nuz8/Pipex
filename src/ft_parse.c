@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split2.c                                        :+:      :+:    :+:   */
+/*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:56:13 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/14 16:29:16 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/21 22:20:01 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-char			**ft_split2(char const *s, char c);
+char			**ft_parse(char const *s, char c);
 static size_t	f_word_count(char const *str, char c);
 static void		f_word_lengths(char const *str, char c, size_t *wordlens);
 static void		f_write(char **split, char const *s, char c);
-static void		f_free(char **memory);
 
-char	**ft_split2(char const *s, char c)
+char	**ft_parse(char const *s, char c)
 {
 	char	**split;
 	size_t	wcount;
@@ -38,7 +37,7 @@ char	**ft_split2(char const *s, char c)
 	{
 		split[i] = (char *)malloc((wordlens[i] + 1) * sizeof(char));
 		if (!split[i])
-			return (free(wordlens), f_free(split), NULL);
+			return (free(wordlens), ft_free2D(split), NULL);
 		i++;
 	}
 	split[wcount] = NULL;
@@ -50,10 +49,8 @@ char	**ft_split2(char const *s, char c)
 static size_t	f_word_count(char const *str, char c)
 {
 	char	*s;
-	char	quote_count;	//
 	size_t	wcount;
 
-	quote_count = 0;	//
 	wcount = 0;
 	s = (char *)str;
 	while (*s)
@@ -117,14 +114,4 @@ static void	f_write(char **split, char const *s, char c)
 		else
 			s++;
 	}
-}
-
-static void	f_free(char **memory)
-{
-	size_t	i;
-
-	i = 0;
-	while (memory[i] != NULL)
-		free(memory[i++]);
-	free(memory);
 }

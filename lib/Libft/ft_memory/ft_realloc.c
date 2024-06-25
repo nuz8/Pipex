@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:03:40 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/20 15:13:34 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/20 20:21:46 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ void	*ft_realloc(void *ptr, size_t size)
 {
 	unsigned char	*new_ptr;
 
-	new_ptr = malloc(size + 1);
+	if (size == 0 && ptr)
+		size = 1;
+	new_ptr = malloc(size);
 	if (!new_ptr)
 		return (NULL);
-	ft_memmove(new_ptr, ptr, size);
-	new_ptr[size] = '\0';
+	if (ptr)
+		ft_memmove(new_ptr, ptr, size);
 	free(ptr);
 	ptr = new_ptr;
 	return (ptr);
@@ -35,13 +37,17 @@ void	*ft_realloc(void *ptr, size_t size)
 // 	unsigned char	*new_ptr_cpy;
 
 // 	ptr_cpy = (unsigned char *)ptr;
-// 	new_ptr = malloc(size + 1);
+// 	if (size == 0 && ptr)
+// 		size = 1;
+// 	new_ptr = malloc(size);
 // 	if (!new_ptr)
 // 		return (NULL);
 // 	new_ptr_cpy = new_ptr;
-// 	while (size--)
-// 		*new_ptr++ = *ptr_cpy++;
-// 	*new_ptr = '\0';
+// 	if (ptr)
+// 	{
+// 		while (size--)
+// 			*new_ptr++ = *ptr_cpy++;
+// 	}
 // 	free(ptr);
 // 	ptr = new_ptr_cpy;
 // 	return (ptr);

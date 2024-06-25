@@ -6,11 +6,12 @@
 #    By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 14:30:19 by pamatya           #+#    #+#              #
-#    Updated: 2024/06/20 15:28:21 by pamatya          ###   ########.fr        #
+#    Updated: 2024/06/25 19:43:40 by pamatya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC		=	cc
+CC		=	cc -g
+# CC		=	cc -g -fsanitize=address
 CFLAGS	=	-Wall -Wextra -Werror
 RM		=	rm -f
 
@@ -23,8 +24,9 @@ EXEC_IN	=	./bin/$(NAME)
 INFILE	=	./io_files/infile.txt
 OUTFILE	=	./io_files/outfile.txt
 CMD1	=	cat
-C2_ARG	=	"exec"
+C2_ARG	=	"file"
 CMD2	=	"grep $(C2_ARG)"
+# CMD2	=	cat
 
 SRCS	=	./src/pipex_main.c ./src/pipex_utils.c
 
@@ -60,8 +62,9 @@ cleanx:
 fcleanx: cleanx
 	$(RM) $(PIP_LIB)
 	$(RM) $(EXEC_IN)
-	$(RM) $(EXEC_IN)2
 	$(MAKE) -C $(DIR) fclean
+	$(RM) $(EXEC_IN)2
+	$(RM) ./bin/bug
 
 exe:
 	$(EXEC_IN) $(INFILE) $(CMD1) $(CMD2) $(OUTFILE)
@@ -69,5 +72,8 @@ exe:
 exe2:
 	$(CC) $(CFLAGS) ./src/pipex2.c -o ./bin/pipex2
 	$(EXEC_IN)2
+	
+debug:
+	$(CC) $(CFLAGS) ./lib/libft.a ./src/pipex_main.c ./src/pipex_utils.c -o ./bin/bug
 
 .PHONY: all clean fclean re cleanx fcleanx

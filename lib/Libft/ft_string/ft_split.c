@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:56:13 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/12 23:45:49 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/21 22:28:42 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,6 @@ static void	f_write(char **split, char const *s, char c)
 	}
 }
 
-static void	f_free(char **memory)
-{
-	size_t	i;
-
-	i = 0;
-	while (memory[i] != NULL)
-		free(memory[i++]);
-	free(memory);
-}
-
 char	**ft_split(char const *s, char c)
 {
 	char	**split;
@@ -112,7 +102,7 @@ char	**ft_split(char const *s, char c)
 	{
 		split[i] = (char *)malloc((wordlens[i] + 1) * sizeof(char));
 		if (!split[i])
-			return (free(wordlens), f_free(split), NULL);
+			return (free(wordlens), ft_free2D(split), NULL);
 		i++;
 	}
 	split[wcount] = NULL;
