@@ -6,7 +6,7 @@
 #    By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 14:30:19 by pamatya           #+#    #+#              #
-#    Updated: 2024/06/26 00:13:44 by pamatya          ###   ########.fr        #
+#    Updated: 2024/06/26 01:09:22 by pamatya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ EXEC_IN	=	./bin/$(NAME)
 INFILE	=	./io_files/infile.txt
 OUTFILE	=	./io_files/outfile.txt
 CMD1	=	cat
-C2_ARG	=	"exec"
+C2_ARG	=	"file"
 CMD2	=	"grep $(C2_ARG)"
 
 SRCS	=	./src/pipex_main.c ./src/pipex_utils.c ./src/children.c ./src/fields.c
@@ -74,7 +74,7 @@ exe2:
 	$(CC) $(CFLAGS) ./src/pipex2.c -o ./bin/pipex2
 	$(EXEC_IN)2
 	
-debug:
-	$(CC) $(CFLAGS) ./lib/libft.a ./src/pipex_main.c ./src/pipex_utils.c -o ./bin/bug
+bug:
+	$(CC) $(CFLAGS) ./lib/libft.a $(SRCS) -o ./bin/bug
 
 .PHONY: all clean fclean re cleanx fcleanx

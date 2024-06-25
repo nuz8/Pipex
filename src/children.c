@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 19:30:19 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/25 21:25:51 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/26 01:07:57 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	child_read(t_pipex *data)
 	// Child process 1
 	// Code for infile with input redirection, and check if it can be opened
 	if ((data->infile = open(data->argV[1], O_RDONLY)) == -1)
-		return (write(2, "Couldn't open infile\n", 21), ft_close(data->pipe_fd), 2);
+		return (perror("Infile error"), ft_close(data->pipe_fd), 3);
 
 	// Code for input/output redirection with infile
 	close(data->pipe_fd[0]);
@@ -44,7 +44,7 @@ int	child_write(t_pipex *data)
 	// Child process 2
 	// Check if outfile exists, and create it if it doesn't.
 	if ((data->outfile = open(data->argV[4], O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
-		return (write(2, "Couldn't open outfile\n", 22), ft_close(data->pipe_fd), 4);
+		return (perror("Outfile error"), ft_close(data->pipe_fd), 4);
 
 	// Code for outfile with input/output redirection
 	close(data->pipe_fd[1]);
@@ -64,11 +64,11 @@ int	initiate_children(t_pipex *data)
 	pid_t	pid[2];
 
 	if ((pid[0] = fork()) == -1)
-		return (write(2, "Couldn't fork\n", 14), ft_close(data->pipe_fd), 3);
+		return (perror("Fork1 error"), ft_close(data->pipe_fd), 2);
 	if (pid[0] == 0)
 		child_read(data);	
 	if ((pid[1] = fork()) == -1)
-		return (write(2, "Couldn't fork\n", 14), ft_close(data->pipe_fd), 3);
+		return (perror("Fork2 error"), ft_close(data->pipe_fd), 2);
 	if (pid[1] == 0)
 		child_write(data);
 	ft_close(data->pipe_fd);
