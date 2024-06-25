@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:31:21 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/25 19:41:50 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/25 20:15:45 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ typedef struct	s_str_list
 
 typedef struct	s_pipex
 {
+	int			argC;
+	char		**argV;
+	char		**env_vars;
 	char		**paths;
 	int			infile;
 	int			outfile;
@@ -57,6 +60,11 @@ size_t	param_count(char **cmd);
 char	*ft_weave(char *str1, char *str2, char separater);
 size_t	ft_weave2(char *str1, char *str2, char separater);
 char	**ft_parse_back(char **cmd);
+
+// children.c
+void	child_read(t_pipex *data);
+void	child_write(t_pipex *data);
+void	initialize_children(t_pipex *data);
 
 // ft_parse.c
 char	**ft_parse(char const *s, char c);
