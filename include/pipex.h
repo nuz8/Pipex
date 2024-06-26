@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:31:21 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/26 00:03:51 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/27 01:22:32 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ typedef struct	s_pipex
 void	ft_close(int fd[]);
 char	**get_paths(char **envp);
 char	*get_binary_path(char *cmd, char **paths);
-size_t	param_count(char **cmd);
-char	*ft_weave(char *str1, char *str2, char separater);
-size_t	ft_weave2(char *str1, char *str2, char separater);
-char	**ft_parse_back(char **cmd);
+// size_t	param_count(char **cmd);
+// char	*ft_weave(char *str1, char *str2, char separater);
+// size_t	ft_weave2(char *str1, char *str2, char separater);
+// char	**ft_parse_back(char **cmd);
 
 // children.c
 int	child_read(t_pipex *data);

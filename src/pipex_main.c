@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:20:42 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/26 00:54:26 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/27 01:45:37 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ int	main(int argc, char **argv, char **envp)
 	ret_value = initiate_children(&data);
 	if (ret_value != 0)
 		return (free_fields(&data), ret_value);
-	return (0);
+	return (free_fields(&data), 0);
 }

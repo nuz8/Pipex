@@ -1,5 +1,1 @@
--rw-r--r--   1 pamatya  2024_heilbronn   1542 May 27 21:38 Makefile
 -rw-r--r--   1 pamatya  2024_heilbronn   1087 May 29 00:10 file.txt
--rw-r--r--   1 pamatya  2024_heilbronn    107 May 27 23:29 infile
--rwxr-xr-x   1 pamatya  2024_heilbronn     20 May 29 02:37 next_file.txt
-drwxr-xr-x   5 pamatya  2024_heilbronn    170 May 29 00:44 test_files
