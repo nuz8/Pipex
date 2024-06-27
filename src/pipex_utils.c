@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:30:53 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/27 01:21:56 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/28 00:35:20 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,15 +164,15 @@ char	*get_binary_path(char *cmd, char **paths)
 // 		{
 // 			*parsed_cmd = ft_strdup(cmd[i++]);
 // 			if (!(*parsed_cmd++))
-// 				return (ft_free2D(parsed_cmd), NULL);
+// 				return (ft_free2d(parsed_cmd), NULL);
 // 		}
 // 		else
 // 		{
 // 			ft_weave(*parsed_cmd, cmd[i], ' ');
 // 			if (!(*parsed_cmd))
-// 				return (ft_free2D(parsed_cmd), NULL);
+// 				return (ft_free2d(parsed_cmd), NULL);
 // 		}
 // 	}
-// 	// return (ft_free2D(cmd), parsed_cmd);
+// 	// return (ft_free2d(cmd), parsed_cmd);
 // 	return (cmd = parsed_cmd, cmd);
 // }

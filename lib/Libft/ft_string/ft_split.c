@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:56:13 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/21 22:28:42 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/28 00:44:48 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,99 +14,63 @@
 
 static size_t	f_word_count(char const *str, char c)
 {
-	char	*s;
 	size_t	wcount;
 
 	wcount = 0;
-	s = (char *)str;
-	while (*s)
+	while (*str)
 	{
-		if (*s != c)
+		if (*str != c)
 		{
 			wcount++;
-			while (*s && *s != c)
-				s++;
+			while (*str && *str != c)
+				str++;
 		}
 		else
-			s++;
+			str++;
 	}
 	return (wcount);
 }
 
-static void	f_word_lengths(char const *str, char c, size_t *wordlens)
+static int	f_alloc_and_put(char **split, char const *s, char c)
 {
-	char	*s;
+	size_t	line;
+	size_t	word;
 	size_t	length;
-	size_t	i;
 
-	i = 0;
-	s = (char *)str;
+	line = 0;
 	while (*s)
 	{
-		length = 0;
+		word = 0;
 		if (*s != c)
 		{
-			while (*s && *s != c)
-			{
+			length = 0;
+			while (*(s + length) && *(s + length) != c)
 				length++;
-				s++;
-			}
-			wordlens[i] = length;
-			i++;
-		}
-		else
-			s++;
-	}
-}
-
-static void	f_write(char **split, char const *s, char c)
-{
-	size_t	i;
-	size_t	j;
-	size_t	length;
-
-	i = 0;
-	while (*s)
-	{
-		j = 0;
-		length = 0;
-		if (*s != c)
-		{
+			split[line] = malloc((length + 1) * sizeof(char));
+			if (!split[line])
+				return (-1);
 			while (*s && *s != c)
-				split[i][j++] = *s++;
-			split[i][j] = '\0';
-			i++;
+				split[line][word++] = *s++;
+			split[line][word] = '\0';
+			line++;
 		}
 		else
 			s++;
 	}
+	return (0);
 }
 
 char	**ft_split(char const *s, char c)
 {
 	char	**split;
 	size_t	wcount;
-	size_t	*wordlens;
-	size_t	i;
 
 	wcount = f_word_count(s, c);
-	wordlens = (size_t *)malloc(wcount * sizeof(size_t));
-	if (!wordlens)
-		return (NULL);
 	split = (char **)malloc((wcount + 1) * sizeof(char *));
 	if (!split)
-		return (free(wordlens), NULL);
-	f_word_lengths(s, c, wordlens);
-	i = 0;
-	while (i < wcount)
-	{
-		split[i] = (char *)malloc((wordlens[i] + 1) * sizeof(char));
-		if (!split[i])
-			return (free(wordlens), ft_free2D(split), NULL);
-		i++;
-	}
+		return (NULL);
 	split[wcount] = NULL;
-	f_write(split, s, c);
-	free(wordlens);
+	if (f_alloc_and_put(split, s, c) == -1)
+		return (ft_free2d(split), NULL);
 	return (split);
 }

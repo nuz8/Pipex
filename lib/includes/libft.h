@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:24:05 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/23 23:20:01 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/28 00:37:41 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	*ft_memchr(const void *str, int c, size_t n);
 int		ft_memcmp(const char *str1, const char *str2, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 void	*ft_realloc(void *ptr, size_t size);
-void	ft_free2D(char **memory);
+void	ft_free2d(char **memory);
 
 // lib/Libft/ft_put_fd
 void	ft_putchar_fd(char c, int fd);

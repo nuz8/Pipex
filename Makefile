@@ -6,12 +6,12 @@
 #    By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 14:30:19 by pamatya           #+#    #+#              #
-#    Updated: 2024/06/27 01:40:41 by pamatya          ###   ########.fr        #
+#    Updated: 2024/06/27 20:32:50 by pamatya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# CC		=	cc
-CC		=	cc -g -fsanitize=address
+CC		=	cc
+# CC		=	cc -g -fsanitize=address
 
 CFLAGS	=	-Wall -Wextra -Werror
 RM		=	rm -f
@@ -24,9 +24,10 @@ EXEC_IN	=	./bin/$(NAME)
 
 INFILE	=	./io_files/infile.txt
 OUTFILE	=	./io_files/outfile.txt
-CMD1	=	cat
-C2_ARG	=	\"nn   1087 May\"
-CMD2	=	"grep $(C2_ARG)"
+CMD1	=	who
+C2_ARG	=	'\''$$2 == "console" {print $$3 " " $$4 " " $$5}'\''
+CMD2	=	'awk $(C2_ARG)'
+# CMD2	=	'awk '\''$$2 == "console" {print $$3 " " $$4 " " $$5}'\'''
 
 TEST	=	./src/ft_parse.c
 
@@ -35,6 +36,7 @@ SRCS	=	./src/pipex_main.c ./src/pipex_utils.c ./src/children.c ./src/fields.c ./
 OBJS	=	$(SRCS:.c=.o)
 
 DEBUG	=	$(TEST)
+# DEBUG	=	$(SRCS)
 
 all: $(NAME)
 
@@ -57,7 +59,7 @@ fclean: clean
 	$(RM) $(EXEC_IN)
 	$(RM) $(EXEC_IN)2
 	$(RM) ./bin/test
-	$(RM) ./bin/test_main
+	$(RM) -r ./bin/test.dSYM
 	$(RM) ./bin/bug
 	$(RM) -r ./bin/bug.dSYM
 

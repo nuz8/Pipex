@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:31:21 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/27 01:22:32 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/27 03:53:28 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ int	free_fields(t_pipex *data);
 int	initiate_commands(t_pipex *data);
 
 // ft_parse.c
-char	**ft_parse(char const *s, char c);
+char	**ft_parse(char const *s);
 
 #endif
