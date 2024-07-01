@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 22:07:34 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/01 23:18:06 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/02 00:05:09 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_binary_path(char *cmd, char **paths);
 
 int	get_binaries(t_pipex *data)
 {
-	int		i;
+	// int		i;
 	
 	data->paths = get_paths(data->env_vars);
 	if (!data->paths)
@@ -28,32 +28,32 @@ int	get_binaries(t_pipex *data)
 	data->cmd1.str = ft_parse(data->argV[2]);
 	if (!data->cmd1.str)
 		return (free_fields(data), write(2, "Parse error cmd1\n", 19), 2);
-	i = 0;
-	while (*(data->cmd1.str + i))
-		ft_printf("%s\n", *(data->cmd1.str + i++));
-	ft_printf("\n");
+	// i = 0;
+	// while (*(data->cmd1.str + i))
+	// 	ft_printf("%s\n", *(data->cmd1.str + i++));
+	// ft_printf("\n");
 
 	data->cmd2.str = ft_parse(data->argV[3]);
 	if (!data->cmd2.str)
 		return (free_fields(data), write(2, "Parse error cmd2\n", 19), 2);
-	i = 0;
-	while (*(data->cmd2.str + i))
-		ft_printf("%s\n", *(data->cmd2.str + i++));
-	ft_printf("\n");
-	ft_printf("\n");
+	// i = 0;
+	// while (*(data->cmd2.str + i))
+	// 	ft_printf("%s\n", *(data->cmd2.str + i++));
+	// ft_printf("\n");
+	// ft_printf("\n");
 	
 	data->bin_path1 = get_binary_path(data->cmd1.str[0], data->paths);
 	if (!data->bin_path1)
 		return (free_fields(data), write(2, "Couldn't get path1\n", 19), 2);
 		// return (free_fields(data), perror("Command not found"), 3);
-	ft_printf("%s\n", (data->bin_path1));
+	// ft_printf("%s\n", (data->bin_path1));
 	
 	data->bin_path2 = get_binary_path(data->cmd2.str[0], data->paths);
 	if (!data->bin_path2)
 		return (free_fields(data), write(2, "Couldn't get path2\n", 19), 2);
 		// return (free_fields(data), perror("Command not found"), 3);
-	ft_printf("%s\n", (data->bin_path2));
-	ft_printf("\n");
+	// ft_printf("%s\n", (data->bin_path2));
+	// ft_printf("\n");
 	return (0);
 }
 
