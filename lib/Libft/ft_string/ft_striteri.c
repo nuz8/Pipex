@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 17:54:51 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/12 23:46:05 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/01 13:06:29 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
 	unsigned int	i;
-	unsigned int	len;
+	// unsigned int	len;
 
 	if (!s || !f)
 		return ;
-	len = ft_strlen(s);
+	// len = ft_strlen(s);
 	i = 0;
 	while (s[i])
 	{

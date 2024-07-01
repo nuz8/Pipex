@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:20:42 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/27 02:52:25 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/29 19:00:38 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,21 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	data;
 	int		ret_value;
-	int		i;
+	// int		i;
 
-	ft_printf("Total no. of args:	%d\n", argc);
-	i = 0;
-	while (i < argc)
-		ft_printf(">>%s<<\n", argv[i++]);
-	
-	
+	// ft_printf("Total no. of args:	%d\n", argc);
+	// i = 0;
+	// while (i < argc)
+	// 	ft_printf(">>%s<<\n", argv[i++]);
+
 	if (argc != 5)
 		return (write(2, "Usage: ./pipex infile cmd1 cmd2 outfile\n", 40), 1);
-	nullify_fields(&data);
+	initialize_fields(&data);
 	data.argC = argc;
 	data.argV = argv;
 	data.env_vars = envp;
 	ret_value = 0;
-	ret_value = initiate_commands(&data);
+	ret_value = get_binaries(&data);
 	if (ret_value != 0)
 		return (ret_value);
 	if (pipe(data.pipe_fd) == -1)

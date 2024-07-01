@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse.c                                         :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:56:13 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/28 00:47:47 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/28 03:11:55 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-char			**ft_parse(char const *s);
-static size_t	f_word_count(char const *str);
-static size_t	ft_wordlen(char const *str, char stop);
-static int		f_malloc_and_write(char **parsed, char const *s);
+char	**ft_parse(char const *s);
+size_t	f_word_count(char const *str);
+size_t	f_word_len(char const *str, char stop);
+int		f_alloc_words(char **parsed, char const *s);
 
 char	**ft_parse(char const *s)
 {
@@ -27,12 +27,12 @@ char	**ft_parse(char const *s)
 	if (!parsed)
 		return (NULL);
 	parsed[wcount] = NULL;
-	if (f_malloc_and_write(parsed, s) == -1)
+	if (f_alloc_words(parsed, s) == -1)
 		return (ft_free2d(parsed), NULL);
 	return (parsed);
 }
 
-static size_t	f_word_count(char const *str)
+size_t	f_word_count(char const *str)
 {
 	size_t	wcount;
 	char	skip;
@@ -55,7 +55,7 @@ static size_t	f_word_count(char const *str)
 	return (wcount);
 }
 
-static size_t	ft_wordlen(char const *str, char stop)
+size_t	f_word_len(char const *str, char stop)
 {
 	size_t	i;
 
@@ -66,7 +66,7 @@ static size_t	ft_wordlen(char const *str, char stop)
 }
 
 // line is the outer loop-counter (i), and word is the inner loop-counter (j)
-static int	f_malloc_and_write(char **parsed, char const *s)
+int	f_alloc_words(char **parsed, char const *s)
 {
 	size_t	line;
 	size_t	word;
@@ -81,7 +81,7 @@ static int	f_malloc_and_write(char **parsed, char const *s)
 		{
 			if (*s == '\"' || *s == '\'')
 				skip = *s++;
-			parsed[line] = malloc((ft_wordlen(s, skip) + 1) * sizeof(char));
+			parsed[line] = malloc((f_word_len(s, skip) + 1) * sizeof(char));
 			if (!parsed[line])
 				return (-1);
 			while (*s && *s != skip)

@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:10:03 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/12 23:46:57 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/01 13:07:27 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char	*trimmed;
 	char	*startp;
 	char	*endp;
-	size_t	len;
+	long	len;
 
 	if (!s1)
 		return (NULL);

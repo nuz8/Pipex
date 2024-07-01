@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:31:21 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/27 03:53:28 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/06/29 18:59:17 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,26 +52,25 @@ typedef struct	s_pipex
 // pipex_main.c
 // int		main(int argc, char **argv, char **envp);
 
-// pipex_utils.c
-void	ft_close(int fd[]);
+// binaries.c
+int		get_binaries(t_pipex *data);
 char	**get_paths(char **envp);
 char	*get_binary_path(char *cmd, char **paths);
-// size_t	param_count(char **cmd);
-// char	*ft_weave(char *str1, char *str2, char separater);
-// size_t	ft_weave2(char *str1, char *str2, char separater);
-// char	**ft_parse_back(char **cmd);
+
+// parsing.c
+char	**ft_parse(char const *s);
+size_t	f_word_count(char const *str);
+size_t	f_word_len(char const *str, char stop);
+int		f_alloc_words(char **parsed, char const *s);
 
 // children.c
-int	child_read(t_pipex *data);
-int	child_write(t_pipex *data);
-int	initiate_children(t_pipex *data);
+int		child_read(t_pipex *data);
+int		child_write(t_pipex *data);
+int		initiate_children(t_pipex *data);
 
-// fields.c
-int	nullify_fields(t_pipex *data);
-int	free_fields(t_pipex *data);
-int	initiate_commands(t_pipex *data);
-
-// ft_parse.c
-char	**ft_parse(char const *s);
+// utilities.c
+int		initialize_fields(t_pipex *data);
+int		free_fields(t_pipex *data);
+void	ft_close(int fd[]);
 
 #endif
