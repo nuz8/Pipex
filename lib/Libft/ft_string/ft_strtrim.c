@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:10:03 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/01 13:07:27 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/01 19:29:54 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char	*trimmed;
 	char	*startp;
 	char	*endp;
-	long	len;
+	size_t	len;
 
 	if (!s1)
 		return (NULL);
@@ -53,7 +53,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (!*startp)
 		endp = startp;
 	len = endp - startp + 1;
-	if (len < 0)
+	if ((endp - startp + 1) < 0)
 		len = 0;
 	trimmed = (char *)malloc((len + 1) * sizeof(char));
 	if (!trimmed)

@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:56:13 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/28 03:11:55 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/01 20:26:04 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**ft_parse(char const *s)
 		return (NULL);
 	parsed[wcount] = NULL;
 	if (f_alloc_words(parsed, s) == -1)
-		return (ft_free2d(parsed), NULL);
+		return (ft_free2d_safe(&parsed), NULL);
 	return (parsed);
 }
 

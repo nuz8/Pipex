@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:24:05 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/01 16:04:22 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/01 19:34:05 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 
-typedef struct	s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
-}				t_list;
+}	t_list;
 
 // lib/Libft/ft_is
 int		ft_isalpha(int c);

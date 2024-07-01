@@ -6,12 +6,12 @@
 #    By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 14:30:19 by pamatya           #+#    #+#              #
-#    Updated: 2024/07/01 16:19:37 by pamatya          ###   ########.fr        #
+#    Updated: 2024/07/01 21:19:00 by pamatya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# CC		=	cc
-CC		=	cc -g -fsanitize=address
+CC		=	cc
+# CC		=	cc -g -fsanitize=address
 
 CFLAGS	=	-Wall -Wextra -Werror
 RM		=	rm -f
@@ -29,7 +29,7 @@ INFILE	=	./io_files/infile.txt
 OUTFILE	=	./io_files/outfile.txt
 
 CMD1	=	cat
-CMD2	=	"grep file"
+CMD2	=	"grep exe"
 
 # CMD1	=	who
 # C2_ARG	=	'\''$$2 == "console" {print $$3 " " $$4 " " $$5}'\''
@@ -70,7 +70,9 @@ fclean: clean
 	$(RM) ./bin/bug
 	$(RM) -r ./bin/bug.dSYM
 
-re: fclean all
+re: fcleanx
+	$(MAKE) fclean
+	$(MAKE) all
 
 cleanx:
 	$(RM) $(OBJS)
@@ -79,7 +81,7 @@ cleanx:
 fcleanx: cleanx
 	$(RM) $(PIP_LIB)
 	$(RM) $(EXE_PATH)/$(NAME)
-	$(MAKE) -C $(DIR) fclean
+	$(MAKE) -sC $(DIR) fclean
 
 exe:
 	$(EXE_PATH)/$(NAME) $(INFILE) $(CMD1) $(CMD2) $(OUTFILE)
