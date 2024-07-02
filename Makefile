@@ -6,7 +6,7 @@
 #    By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 14:30:19 by pamatya           #+#    #+#              #
-#    Updated: 2024/07/01 21:19:00 by pamatya          ###   ########.fr        #
+#    Updated: 2024/07/02 18:56:37 by pamatya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,11 @@ EXE_PATH=	.
 INFILE	=	./io_files/infile.txt
 OUTFILE	=	./io_files/outfile.txt
 
-CMD1	=	cat
-CMD2	=	"grep exe"
+# CMD1	=	cat
+# CMD2	=	"grep exe"
+
+CMD1	=	/bin/cat
+CMD2	=	"/usr/bin/grep exe"
 
 # CMD1	=	who
 # C2_ARG	=	'\''$$2 == "console" {print $$3 " " $$4 " " $$5}'\''

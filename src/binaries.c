@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 22:07:34 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/02 00:05:09 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/02 22:05:45 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 int		get_binaries(t_pipex *data);
 char	**get_paths(char **envp);
-char	*ft_strextend(char *s1, char const *s2);
-char	*get_binary_path(char *cmd, char **paths);
+
+// int		get_cmdlen(char *cmd_with_path);
+// char	*remove_path(char *cmd_with_path);
+// int		remove_path(t_str_list *cmd);
+
+char	*get_binary_path(t_str_list *cmd, char **paths);
+// char	*get_binary_path(char *cmd, char **paths);
 
 int	get_binaries(t_pipex *data)
 {
-	// int		i;
+	int		i;
 	
 	data->paths = get_paths(data->env_vars);
 	if (!data->paths)
@@ -28,32 +33,51 @@ int	get_binaries(t_pipex *data)
 	data->cmd1.str = ft_parse(data->argV[2]);
 	if (!data->cmd1.str)
 		return (free_fields(data), write(2, "Parse error cmd1\n", 19), 2);
-	// i = 0;
-	// while (*(data->cmd1.str + i))
-	// 	ft_printf("%s\n", *(data->cmd1.str + i++));
-	// ft_printf("\n");
+	i = 0;
+	while (*(data->cmd1.str + i))
+		ft_printf("%s\n", *(data->cmd1.str + i++));
+	ft_printf("\n");
 
 	data->cmd2.str = ft_parse(data->argV[3]);
 	if (!data->cmd2.str)
 		return (free_fields(data), write(2, "Parse error cmd2\n", 19), 2);
-	// i = 0;
-	// while (*(data->cmd2.str + i))
-	// 	ft_printf("%s\n", *(data->cmd2.str + i++));
-	// ft_printf("\n");
-	// ft_printf("\n");
+	i = 0;
+	while (*(data->cmd2.str + i))
+		ft_printf("%s\n", *(data->cmd2.str + i++));
+	ft_printf("\n");
+	ft_printf("\n");
 	
-	data->bin_path1 = get_binary_path(data->cmd1.str[0], data->paths);
+	// data->bin_path1 = get_binary_path((data->cmd1.str[0]), data->paths);
+	data->bin_path1 = get_binary_path(&(data->cmd1), data->paths);
 	if (!data->bin_path1)
 		return (free_fields(data), write(2, "Couldn't get path1\n", 19), 2);
 		// return (free_fields(data), perror("Command not found"), 3);
-	// ft_printf("%s\n", (data->bin_path1));
+	ft_printf("%s\n", (data->bin_path1));
 	
-	data->bin_path2 = get_binary_path(data->cmd2.str[0], data->paths);
+	// data->bin_path2 = get_binary_path((data->cmd2.str[0]), data->paths);
+	data->bin_path2 = get_binary_path(&(data->cmd2), data->paths);
 	if (!data->bin_path2)
 		return (free_fields(data), write(2, "Couldn't get path2\n", 19), 2);
 		// return (free_fields(data), perror("Command not found"), 3);
-	// ft_printf("%s\n", (data->bin_path2));
-	// ft_printf("\n");
+	ft_printf("%s\n", (data->bin_path2));
+	ft_printf("\n");
+	ft_printf("I am here\n");
+
+	i = 0;
+	while (*(data->cmd1.str + i))
+	{
+		ft_printf(">>%s<<\t", *(data->cmd1.str + i++));
+		ft_printf("any >>%s<<doubts?\n", NULL);
+	}
+	ft_printf("\n");
+	ft_printf("I am here as of now\n");
+	i = 0;
+	while (*(data->cmd2.str + i))
+		ft_printf("%s\n", *(data->cmd2.str + i++));
+	ft_printf("\n");
+	ft_printf("\n");
+	ft_printf("I am here now\n");
+	
 	return (0);
 }
 
@@ -79,44 +103,83 @@ char	**get_paths(char **envp)
 	return (free(path), paths);
 }
 
-// // The function extends string s1 by appending the contents of string s2 at the
-// // the end of s1. The return value is a new string with all characters of s1
-// // and s2, while the original string s1 is freed.
-// // Not a good practice though, to free a pointer that was allocated before
-// // the function call itself.
-// char	*ft_strextend(char *s1, char const *s2)
+// int	get_cmdlen(char *cmd_with_path)
 // {
-// 	char	*j_str;
-// 	size_t	len;
-// 	size_t	i;
+// 	int	cmdlen;
 
-// 	len = ft_strlen(s1) + ft_strlen(s2);
-// 	j_str = (char *)malloc((len + 1) * sizeof(char));
-// 	if (!j_str)
-// 		return (NULL);
-// 	i = 0;
-// 	while (i < len)
+// 	cmdlen = 0;
+// 	while (*cmd_with_path)
 // 	{
-// 		if (i < ft_strlen(s1))
-// 			j_str[i] = s1[i];
-// 		else
-// 			j_str[i] = *s2++;
-// 		i++;
+// 		cmdlen++;
+// 		if (*cmd_with_path == '/')
+// 			cmdlen = 0;
+// 		cmd_with_path++;
 // 	}
-// 	j_str[i] = '\0';
-// 	ft_free_safe(&s1);
-// 	s1 = j_str;
-// 	return (j_str);
 // }
 
-char	*get_binary_path(char *cmd, char **paths)
+// char	*remove_path(char *cmd_with_path)
+// {
+// 	char	*cmd_wo_path;
+// 	int		cmd_len;
+// 	int		cmdwpath_len;
+
+// 	cmd_len = get_cmdlen(cmd_with_path);
+// 	cmdwpath_len = ft_strlen(cmd_with_path);
+// 	cmd_wo_path = malloc((cmd_len + 1) * sizeof(char));
+// 	if (!cmd_wo_path)
+// 		return (NULL);
+// 	cmd_wo_path[cmd_len] = '\0';
+// 	while (cmd_len--)
+// 		*(cmd_wo_path + cmd_len) = *(cmd_with_path + --cmdwpath_len);
+// 	free(cmd_with_path);
+// 	return (cmd_wo_path);
+// }
+
+// This function integrates the above two funcitons: remove_path and get_cmdlen
+// into a single function
+int	remove_path(t_str_list *cmd)
+{
+	char	*cmd_with_path;
+	char	*cmd_wo_path;
+	int		cmd_len;
+	int		cmdwpath_len;
+	int		i;
+
+	cmd_with_path = *(cmd->str);
+	cmdwpath_len = ft_strlen(cmd_with_path);
+	i = 0;
+	cmd_len = 0;
+	while (cmd_with_path[i])
+	{
+		cmd_len++;
+		if (*cmd_with_path == '/')
+			cmd_len = 0;
+		i++;
+	}
+	cmd_wo_path = malloc((cmd_len + 1) * sizeof(char));
+	if (!cmd_wo_path)
+		return (-1);
+	cmd_wo_path[cmd_len] = '\0';
+	while (cmd_len--)
+		*(cmd_wo_path + cmd_len) = *(cmd_with_path + --cmdwpath_len);
+	free(cmd->str[0]);
+	cmd->str[0] = cmd_wo_path;
+	return (0);
+}
+
+
+
+// get_binary_path function that receives t_str_list pointer
+char	*get_binary_path(t_str_list *cmd, char **paths)
 {
 	char	*bin;
 	char	*tmp;
 
-	if (access(cmd, F_OK) == 0)
+	if (access(*(cmd->str), F_OK) == 0)
 	{
-		bin = cmd;
+		bin = *(cmd->str);
+		if (remove_path(cmd) == -1)
+			return (perror("Remove_path-malloc failed"), NULL);
 		return (bin);
 	}
 	while (*paths)
@@ -124,7 +187,7 @@ char	*get_binary_path(char *cmd, char **paths)
 		tmp = ft_strjoin(*paths, "/");
 		if (!tmp)
 			return (NULL);
-		bin = ft_strjoin(tmp, cmd);	// Fixed: Possible memory leaks here due to change of pointers from previous allocation
+		bin = ft_strjoin(tmp, *(cmd->str));	// Fixed: Possible memory leaks here due to change of pointers from previous allocation
 		if (!bin)
 			return (free(tmp), NULL);
 		free(tmp);
@@ -135,3 +198,32 @@ char	*get_binary_path(char *cmd, char **paths)
 	}
 	return (NULL);
 }
+
+// char	*get_binary_path(char *cmd, char **paths)
+// {
+// 	char	*bin;
+// 	char	*tmp;
+
+// 	if (access(cmd, F_OK) == 0)
+// 	{
+// 		bin = cmd;
+// 		// if (remove_path(cmd) == -1)
+// 		// 	return (perror("Remove_path-malloc failed"), NULL);
+// 		return (bin);
+// 	}
+// 	while (*paths)
+// 	{
+// 		tmp = ft_strjoin(*paths, "/");
+// 		if (!tmp)
+// 			return (NULL);
+// 		bin = ft_strjoin(tmp, cmd);	// Fixed: Possible memory leaks here due to change of pointers from previous allocation
+// 		if (!bin)
+// 			return (free(tmp), NULL);
+// 		free(tmp);
+// 		if (access(bin, F_OK) == 0)
+// 			return (bin);
+// 		free(bin);
+// 		paths++;
+// 	}
+// 	return (NULL);
+// }
