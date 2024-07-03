@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 22:07:34 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/02 22:05:45 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/03 03:28:14 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,62 +24,89 @@ char	*get_binary_path(t_str_list *cmd, char **paths);
 
 int	get_binaries(t_pipex *data)
 {
-	int		i;
-	
 	data->paths = get_paths(data->env_vars);
 	if (!data->paths)
-		return (write(2, "Couldn't get paths", 19), 2);
+		return (perror("Couldn't get paths"), 2);
 	
 	data->cmd1.str = ft_parse(data->argV[2]);
 	if (!data->cmd1.str)
-		return (free_fields(data), write(2, "Parse error cmd1\n", 19), 2);
-	i = 0;
-	while (*(data->cmd1.str + i))
-		ft_printf("%s\n", *(data->cmd1.str + i++));
-	ft_printf("\n");
+		return (free_fields(data), perror("Parse error cmd1"), 2);
 
 	data->cmd2.str = ft_parse(data->argV[3]);
 	if (!data->cmd2.str)
-		return (free_fields(data), write(2, "Parse error cmd2\n", 19), 2);
-	i = 0;
-	while (*(data->cmd2.str + i))
-		ft_printf("%s\n", *(data->cmd2.str + i++));
-	ft_printf("\n");
-	ft_printf("\n");
-	
+		return (free_fields(data), perror("Parse error cmd1"), 2);
+
 	// data->bin_path1 = get_binary_path((data->cmd1.str[0]), data->paths);
 	data->bin_path1 = get_binary_path(&(data->cmd1), data->paths);
 	if (!data->bin_path1)
-		return (free_fields(data), write(2, "Couldn't get path1\n", 19), 2);
+		return (free_fields(data), perror("Couldn't get path1"), 2);
 		// return (free_fields(data), perror("Command not found"), 3);
-	ft_printf("%s\n", (data->bin_path1));
 	
 	// data->bin_path2 = get_binary_path((data->cmd2.str[0]), data->paths);
 	data->bin_path2 = get_binary_path(&(data->cmd2), data->paths);
 	if (!data->bin_path2)
-		return (free_fields(data), write(2, "Couldn't get path2\n", 19), 2);
+		return (free_fields(data), perror("Couldn't get path2"), 2);
 		// return (free_fields(data), perror("Command not found"), 3);
-	ft_printf("%s\n", (data->bin_path2));
-	ft_printf("\n");
-	ft_printf("I am here\n");
-
-	i = 0;
-	while (*(data->cmd1.str + i))
-	{
-		ft_printf(">>%s<<\t", *(data->cmd1.str + i++));
-		ft_printf("any >>%s<<doubts?\n", NULL);
-	}
-	ft_printf("\n");
-	ft_printf("I am here as of now\n");
-	i = 0;
-	while (*(data->cmd2.str + i))
-		ft_printf("%s\n", *(data->cmd2.str + i++));
-	ft_printf("\n");
-	ft_printf("\n");
-	ft_printf("I am here now\n");
-	
 	return (0);
 }
+
+// int	get_binaries(t_pipex *data)
+// {
+// 	int		i;
+	
+// 	data->paths = get_paths(data->env_vars);
+// 	if (!data->paths)
+// 		return (perror("Couldn't get paths"), 2);
+	
+// 	data->cmd1.str = ft_parse(data->argV[2]);
+// 	if (!data->cmd1.str)
+// 		return (free_fields(data), perror("Parse error cmd1"), 2);
+// 	i = 0;
+// 	while (*(data->cmd1.str + i))
+// 		ft_printf(">>%s<<\n", *(data->cmd1.str + i++));
+// 	ft_printf("\n");
+
+// 	data->cmd2.str = ft_parse(data->argV[3]);
+// 	if (!data->cmd2.str)
+// 		return (free_fields(data), perror("Parse error cmd1"), 2);
+// 	i = 0;
+// 	while (*(data->cmd2.str + i))
+// 		ft_printf(">>%s<<\n", *(data->cmd2.str + i++));
+// 	ft_printf("\n");
+// 	ft_printf("\n");
+
+// 	// data->bin_path1 = get_binary_path((data->cmd1.str[0]), data->paths);
+// 	data->bin_path1 = get_binary_path(&(data->cmd1), data->paths);
+// 	if (!data->bin_path1)
+// 		return (free_fields(data), perror("Couldn't get path1"), 2);
+// 		// return (free_fields(data), perror("Command not found"), 3);
+// 	ft_printf(">>%s<<\n", (data->bin_path1));
+	
+// 	// data->bin_path2 = get_binary_path((data->cmd2.str[0]), data->paths);
+// 	data->bin_path2 = get_binary_path(&(data->cmd2), data->paths);
+// 	if (!data->bin_path2)
+// 		return (free_fields(data), perror("Couldn't get path2"), 2);
+// 		// return (free_fields(data), perror("Command not found"), 3);
+// 	ft_printf(">>%s<<\n", (data->bin_path2));
+// 	ft_printf("\n");
+// 	ft_printf("I am here\n");
+
+// 	i = 0;
+// 	while (*(data->cmd1.str + i))
+// 	{
+// 		ft_printf(">>%s<<\t", *(data->cmd1.str + i++));
+// 	}
+// 	ft_printf("\n");
+// 	ft_printf("I am here as of now\n");
+// 	i = 0;
+// 	while (*(data->cmd2.str + i))
+// 		ft_printf(">>%s<<\n", *(data->cmd2.str + i++));
+// 	ft_printf("\n");
+// 	ft_printf("\n");
+// 	ft_printf("I am here now\n");
+	
+// 	return (0);
+// }
 
 char	**get_paths(char **envp)
 {
@@ -152,7 +179,7 @@ int	remove_path(t_str_list *cmd)
 	while (cmd_with_path[i])
 	{
 		cmd_len++;
-		if (*cmd_with_path == '/')
+		if (cmd_with_path[i] == '/')
 			cmd_len = 0;
 		i++;
 	}
@@ -162,12 +189,11 @@ int	remove_path(t_str_list *cmd)
 	cmd_wo_path[cmd_len] = '\0';
 	while (cmd_len--)
 		*(cmd_wo_path + cmd_len) = *(cmd_with_path + --cmdwpath_len);
-	free(cmd->str[0]);
+	// free(cmd->str[0]);
+	ft_free_safe(&(cmd->str[0]));
 	cmd->str[0] = cmd_wo_path;
 	return (0);
 }
-
-
 
 // get_binary_path function that receives t_str_list pointer
 char	*get_binary_path(t_str_list *cmd, char **paths)
@@ -177,7 +203,9 @@ char	*get_binary_path(t_str_list *cmd, char **paths)
 
 	if (access(*(cmd->str), F_OK) == 0)
 	{
-		bin = *(cmd->str);
+		bin = ft_strdup(*(cmd->str));
+		if (!bin)
+			return (perror("Couldn't malloc bin"), NULL);
 		if (remove_path(cmd) == -1)
 			return (perror("Remove_path-malloc failed"), NULL);
 		return (bin);
