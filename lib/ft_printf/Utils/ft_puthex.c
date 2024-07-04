@@ -1,43 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lengths.c                                       :+:      :+:    :+:   */
+/*   ft_puthex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/31 20:27:23 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/13 13:05:05 by pamatya          ###   ########.fr       */
+/*   Created: 2024/03/31 16:20:46 by pamatya           #+#    #+#             */
+/*   Updated: 2024/07/04 04:00:47 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../../includes/ft_printf.h"
 
-int	ft_intlen(long num, int base)
+int	ft_puthex(int fd, unsigned int hexnum, char opt)
 {
-	int	len;
+	char	*hex;
+	int		printed;
+	int		len;
 
-	len = 0;
-	if (num <= 0)
-		len = 1;
-	while (num)
-	{
-		len++;
-		num /= base;
-	}
-	return (len);
-}
-
-int	ft_lulen(unsigned long num, int base)
-{
-	int	len;
-
-	len = 0;
-	if (num == 0)
-		return (1);
-	while (num)
-	{
-		len++;
-		num /= base;
-	}
-	return (len);
+	len = ft_intlen((long)hexnum, 16);
+	hex = malloc((len + 1) * sizeof(char));
+	if (!hex)
+		return (-1);
+	ft_basetostr(hexnum, hex, 16);
+	if (opt == 'X')
+		ft_strtoup(hex);
+	printed = ft_putstr(fd, hex);
+	free(hex);
+	return (printed);
 }

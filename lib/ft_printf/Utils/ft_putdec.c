@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex.c                                        :+:      :+:    :+:   */
+/*   ft_putdec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/31 16:20:46 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/13 13:05:30 by pamatya          ###   ########.fr       */
+/*   Created: 2024/03/31 16:20:52 by pamatya           #+#    #+#             */
+/*   Updated: 2024/07/04 04:00:42 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../../includes/ft_printf.h"
 
-int	ft_puthex(unsigned int hexnum, char opt)
+int	ft_putdec(int fd, long num)
 {
-	char	*hex;
+	char	*str;
+	int		n_len;
 	int		printed;
-	int		len;
 
-	len = ft_intlen((long)hexnum, 16);
-	hex = malloc((len + 1) * sizeof(char));
-	if (!hex)
+	printed = 0;
+	n_len = ft_intlen(num, 10);
+	str = (char *)malloc((n_len + 1) * sizeof(char));
+	if (!str)
 		return (-1);
-	ft_basetostr(hexnum, hex, 16);
-	if (opt == 'X')
-		ft_strtoup(hex);
-	printed = ft_putstr(hex);
-	free(hex);
+	ft_basetostr(num, str, 10);
+	printed = ft_putstr(fd, str);
+	free(str);
 	return (printed);
 }

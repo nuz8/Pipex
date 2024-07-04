@@ -1,30 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putdec.c                                        :+:      :+:    :+:   */
+/*   ft_lengths.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/31 16:20:52 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/13 13:05:25 by pamatya          ###   ########.fr       */
+/*   Created: 2024/03/31 20:27:23 by pamatya           #+#    #+#             */
+/*   Updated: 2024/07/04 04:00:32 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../../includes/ft_printf.h"
 
-int	ft_putdec(long num)
+int	ft_intlen(long num, int base)
 {
-	char	*str;
-	int		n_len;
-	int		printed;
+	int	len;
 
-	printed = 0;
-	n_len = ft_intlen(num, 10);
-	str = (char *)malloc((n_len + 1) * sizeof(char));
-	if (!str)
-		return (-1);
-	ft_basetostr(num, str, 10);
-	printed = ft_putstr(str);
-	free(str);
-	return (printed);
+	len = 0;
+	if (num <= 0)
+		len = 1;
+	while (num)
+	{
+		len++;
+		num /= base;
+	}
+	return (len);
+}
+
+int	ft_lulen(unsigned long num, int base)
+{
+	int	len;
+
+	len = 0;
+	if (num == 0)
+		return (1);
+	while (num)
+	{
+		len++;
+		num /= base;
+	}
+	return (len);
 }

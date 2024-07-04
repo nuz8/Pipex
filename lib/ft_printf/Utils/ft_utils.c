@@ -6,11 +6,11 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 20:27:23 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/13 13:05:50 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/04 04:01:05 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../../includes/ft_printf.h"
 
 void	ft_revstr(char *str)
 {

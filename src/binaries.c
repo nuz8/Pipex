@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 22:07:34 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/04 03:02:11 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/04 04:12:20 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	get_binaries(t_pipex *data)
 		// free_fields(data);
 		perror("command not found (bp1) lalalalallaalllalal");
 		// write(2, "command not found (bp1) lalalalallaalllalal\n", 44);
-		// ft_printf("pipex: %s: command not found", data->cmd1.str[0]);
+		// ft_fprintf(2, "pipex: %s: command not found", data->cmd1.str[0]);
 		// return(127);
 	}
 		// return (free_fields(data), perror("Couldn't get path1"), 2);
@@ -70,7 +70,7 @@ int	get_binaries(t_pipex *data)
 		free_fields(data);
 		perror("command not found (bp2) lalalalala");
 		// write(2, "command not found (bp1) lalalalalla\n", 36);
-		// ft_printf("pipex: %s: command not found", data->cmd2.str[0]);
+		// ft_fprintf(2, "pipex: %s: command not found", data->cmd2.str[0]);
 		// exit(127);
 	}
 		// return (free_fields(data), perror("Couldn't get path2"), 2);

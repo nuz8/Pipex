@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:21:10 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/12 23:59:35 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/04 04:07:00 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@
 # include "libft.h"
 
 int		ft_printf(const char *str, ...);
-int		ft_putchr(unsigned char c);
-int		ft_putstr(char *str);
-int		ft_putdec(long num);
-int		ft_puthex(unsigned int hexnum, char opt);
-int		ft_putptr(void *address);
+int		ft_fprintf(int fd, const char *str, ...);
+int		ft_form(int fd, va_list arg, char opt);
+int		ft_putchr(int fd, unsigned char c);
+int		ft_putstr(int fd, char *str);
+int		ft_putdec(int fd, long num);
+int		ft_puthex(int fd, unsigned int hexnum, char opt);
+int		ft_putptr(int fd, void *address);
 void	ft_revstr(char *str);
 void	ft_strtoup(char *str);
 void	ft_basetostr(long num_arg, char *str, long base);

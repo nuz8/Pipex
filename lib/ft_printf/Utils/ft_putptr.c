@@ -6,11 +6,11 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:20:46 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/13 13:05:36 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/04 04:00:54 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../../includes/ft_printf.h"
 
 static void	ft_toptrlow(unsigned long addr, char *hex)
 {
@@ -31,7 +31,7 @@ static void	ft_toptrlow(unsigned long addr, char *hex)
 	ft_revstr(hex);
 }
 
-int	ft_putptr(void *address)
+int	ft_putptr(int fd, void *address)
 {
 	char			*hex;
 	char			*hexptr;
@@ -51,6 +51,6 @@ int	ft_putptr(void *address)
 	*hex++ = '0';
 	*hex++ = 'x';
 	ft_toptrlow(addr, hex);
-	printed = ft_putstr(hexptr);
+	printed = ft_putstr(fd, hexptr);
 	return (free(hexptr), printed);
 }
