@@ -6,11 +6,11 @@
 #    By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 14:30:19 by pamatya           #+#    #+#              #
-#    Updated: 2024/07/03 02:17:36 by pamatya          ###   ########.fr        #
+#    Updated: 2024/07/04 02:48:52 by pamatya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC		=	cc
+CC		=	cc -g
 # CC		=	cc -g -fsanitize=address
 
 CFLAGS	=	-Wall -Wextra -Werror

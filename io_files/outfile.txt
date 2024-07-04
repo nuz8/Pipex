@@ -1,2 +1,1 @@
--rw-r--r--   1 pamatya  2024_heilbronn   1841 May 29 02:37 ft_execute.c
--rw-r--r--   1 pamatya  2024_heilbronn   1817 May 29 00:34 ft_execute2.c
+       0       0       0

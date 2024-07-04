@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 22:07:34 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/03 03:28:14 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/04 03:02:11 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,54 @@ int	get_binaries(t_pipex *data)
 {
 	data->paths = get_paths(data->env_vars);
 	if (!data->paths)
-		return (perror("Couldn't get paths"), 2);
+	{
+		perror("Couldn't get paths");
+		free_fields(data);
+		exit(127);
+	}
+		// return (perror("Couldn't get paths"), 2);
 	
 	data->cmd1.str = ft_parse(data->argV[2]);
 	if (!data->cmd1.str)
-		return (free_fields(data), perror("Parse error cmd1"), 2);
+	{
+		free_fields(data);
+		perror("Parse error cmd1");
+		exit(127);
+	}
+		// return (free_fields(data), perror("Parse error cmd1"), 2);
 
 	data->cmd2.str = ft_parse(data->argV[3]);
 	if (!data->cmd2.str)
-		return (free_fields(data), perror("Parse error cmd1"), 2);
+	{
+		free_fields(data);
+		perror("Parse error cmd2");
+		exit (127);
+	}
+		// return (free_fields(data), perror("Parse error cmd1"), 2);
 
 	// data->bin_path1 = get_binary_path((data->cmd1.str[0]), data->paths);
 	data->bin_path1 = get_binary_path(&(data->cmd1), data->paths);
 	if (!data->bin_path1)
-		return (free_fields(data), perror("Couldn't get path1"), 2);
-		// return (free_fields(data), perror("Command not found"), 3);
+	{
+		// free_fields(data);
+		perror("command not found (bp1) lalalalallaalllalal");
+		// write(2, "command not found (bp1) lalalalallaalllalal\n", 44);
+		// ft_printf("pipex: %s: command not found", data->cmd1.str[0]);
+		// return(127);
+	}
+		// return (free_fields(data), perror("Couldn't get path1"), 2);
 	
 	// data->bin_path2 = get_binary_path((data->cmd2.str[0]), data->paths);
 	data->bin_path2 = get_binary_path(&(data->cmd2), data->paths);
 	if (!data->bin_path2)
-		return (free_fields(data), perror("Couldn't get path2"), 2);
-		// return (free_fields(data), perror("Command not found"), 3);
+	{
+		free_fields(data);
+		perror("command not found (bp2) lalalalala");
+		// write(2, "command not found (bp1) lalalalalla\n", 36);
+		// ft_printf("pipex: %s: command not found", data->cmd2.str[0]);
+		// exit(127);
+	}
+		// return (free_fields(data), perror("Couldn't get path2"), 2);
 	return (0);
 }
 
