@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 19:30:19 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/04 03:51:57 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/05 06:22:39 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,39 @@ int	child_write(t_pipex *data);
 int	initiate_children(t_pipex *data)
 {
 	pid_t	pid[2];
+	int		*ec;
 
+	ec = malloc(sizeof(int));
 	if ((pid[0] = fork()) == -1)
 	{
 		perror("Fork1 error");
 		ft_close(data->pipe_fd);
 		free_fields(data);
-		exit(127);
+		return (127); //
 	}
 		// return (perror("Fork1 error"), ft_close(data->pipe_fd), 2);
 	if (pid[0] == 0)
-		child_read(data);	
+		child_read(data);
+	
 	if ((pid[1] = fork()) == -1)
 	{
 		perror("Fork2 error");
 		ft_close(data->pipe_fd);
 		free_fields(data);
-		exit(127);
+		return (127);
 	}
 		// return (perror("Fork2 error"), ft_close(data->pipe_fd), 2);
 	if (pid[1] == 0)
 		child_write(data);
 	ft_close(data->pipe_fd);
-	// waitpid(pid[0], NULL, 0);
-	// waitpid(pid[1], NULL, 0);
-	return (0);
+	// waitpid(pid[0], &(data->status), 0);
+	waitpid(pid[1], ec, 0);
+	// if (WIFEXITED(ec))
+	// 	data->status = WEXITSTATUS(ec);
+	data->status = ((*ec) >> 8) & 0x000000ff;
+	// ft_printf(" dsdas %d\n", *ec);
+	// return (ec); //
+	return (data->status); //
 }
 
 int	child_read(t_pipex *data)
@@ -57,7 +65,8 @@ int	child_read(t_pipex *data)
 	// Code for infile with input redirection, and check if it can be opened
 	if ((data->infile = open(data->argV[1], O_RDONLY)) == -1)
 	{
-		perror("Infile error");
+		ft_fprintf(2, "pipex: %s: %s\n", data->argV[1], strerror(errno));
+		// perror("Infile error");
 		ft_close(data->pipe_fd);
 		free_fields(data);
 		exit(127);
@@ -77,8 +86,8 @@ int	child_read(t_pipex *data)
 	if (execve(data->bin_path1, data->cmd1.str, data->env_vars) == -1)
 	{
 		perror("1st execve failed");
-		free_fields(data);
-		// exit(127);
+		// free_fields(data);
+		exit(127);
 	}
 	// ft_printf("1st command failed.\n");
 	return (127);
@@ -92,10 +101,10 @@ int	child_write(t_pipex *data)
 	// Check if outfile exists, and create it if it doesn't.
 	if ((data->outfile = open(data->argV[4], O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
 	{
-		perror("Outfile error");
+		ft_fprintf(2, "pipex: %s: %s\n", data->argV[4], strerror(errno));
 		ft_close(data->pipe_fd);
-		free_fields(data);
-		exit(127);
+		// free_fields(data);
+		exit(1);
 	}
 		// return (perror("Outfile error"), ft_close(data->pipe_fd), 4);
 
@@ -114,5 +123,5 @@ int	child_write(t_pipex *data)
 		exit(127);
 	}
 	// ft_printf("2nd command failed.\n");
-	return (127);
+	return (1);
 }

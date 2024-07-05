@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:31:21 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/03 02:17:32 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/05 04:22:40 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct	s_pipex
 	char		*bin_path1;
 	char		*bin_path2;
 	int			pipe_fd[2];
+	int			status;
 }				t_pipex;
 
 // pipex_main.c
@@ -57,6 +58,7 @@ int		get_binaries(t_pipex *data);
 char	**get_paths(char **envp);
 // int		remove_path(t_str_list *cmd);
 
+// int		get_binary_path(t_str_list *cmd, char **paths, char **binary_path);
 char	*get_binary_path(t_str_list *cmd, char **paths);
 // char	*get_binary_path(char *cmd, char **paths);
 

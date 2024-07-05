@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 22:19:54 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/03 03:27:37 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/05 02:55:06 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ void	ft_free2d(char **memory)
 // or from another function which has also received the 1d pointer by reference
 // (**) when the 1d pointer was allocated by another function which calls that
 // function.
-void	ft_free_safe(char **memory)
+void	ft_free_safe(void **mem)
 {
+	char	**memory;
+
+	memory = (char **)mem;
 	if ((*memory) == NULL)
 		return ;
 	else
