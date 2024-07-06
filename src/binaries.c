@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 22:07:34 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/05 05:36:41 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/06 17:42:23 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,28 +215,52 @@ int	remove_path(t_str_list *cmd)
 // get_binary_path function that receives t_str_list pointer and returns int instead of char*
 char	*get_binary_path(t_str_list *cmd, char **paths)
 {
-	char	*tmp[2];
+	char	*tmp[3];
 
-	if (access(*(cmd->str), F_OK) == 0)
-	{
-		if (!(tmp[1] = ft_strdup(*(cmd->str))))
-			return (perror("Couldn't malloc bin_path"), NULL);
-		return (tmp[1]);
-	}
+	if (!(tmp[0] = ft_strdup(*(cmd->str))))
+			return (perror("ft_strdup-malloc failed:"), NULL);
+	if (access(tmp[0], F_OK) == 0)
+		return (tmp[0]);
 	while (*paths)
 	{
-		if (!(tmp[0] = ft_strjoin(*paths, "/")))
-			return (perror("Couldn't malloc tmp[0]"), NULL);
-		if (!(tmp[1] = ft_strjoin(tmp[0], *(cmd->str))))
-			return (free(tmp[0]), perror("Couldn't malloc tmp[1]"), NULL);
-		free(tmp[0]);
-		if (access(tmp[1], F_OK) == 0)
-			return (tmp[1]);
+		if (!(tmp[1] = ft_strjoin(*paths, "/")))
+			return (free(tmp[0]), perror("tmp1-m failed:"), NULL);
+		if (!(tmp[2] = ft_strjoin(tmp[1], *(cmd->str))))
+			return (free(tmp[0]), free(tmp[1]), perror("tmp2-m failed:"), NULL);
 		free(tmp[1]);
+		if (access(tmp[2], F_OK) == 0)
+			return (free(tmp[0]), tmp[2]);
+		free(tmp[2]);
 		paths++;
 	}
-	return (ft_fprintf(2, "pipex: %s: command not found\n", cmd->str[0]), NULL);
+	return (tmp[0]);
 }
+
+// // get_binary_path function that receives t_str_list pointer and returns int instead of char*
+// char	*get_binary_path(t_str_list *cmd, char **paths)
+// {
+// 	char	*tmp[2];
+
+// 	if (access(*(cmd->str), F_OK) == 0)
+// 	{
+// 		if (!(tmp[1] = ft_strdup(*(cmd->str))))
+// 			return (perror("Couldn't malloc bin_path"), NULL);
+// 		return (tmp[1]);
+// 	}
+// 	while (*paths)
+// 	{
+// 		if (!(tmp[0] = ft_strjoin(*paths, "/")))
+// 			return (perror("Couldn't malloc tmp[0]"), NULL);
+// 		if (!(tmp[1] = ft_strjoin(tmp[0], *(cmd->str))))
+// 			return (free(tmp[0]), perror("Couldn't malloc tmp[1]"), NULL);
+// 		free(tmp[0]);
+// 		if (access(tmp[1], F_OK) == 0)
+// 			return (tmp[1]);
+// 		free(tmp[1]);
+// 		paths++;
+// 	}
+// 	return (ft_fprintf(2, "pipex: %s: command not found\n", cmd->str[0]), NULL);
+// }
 
 // // get_binary_path function that receives t_str_list pointer and returns int instead of char*
 // int	get_binary_path(t_str_list *cmd, char **paths, char **bin_path)

@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 19:30:19 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/05 06:22:39 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/06 17:51:14 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	child_read(t_pipex *data)
 		return (127); 
 	if (execve(data->bin_path1, data->cmd1.str, data->env_vars) == -1)
 	{
-		perror("1st execve failed");
+		ft_fprintf(2, "pipex: %s: command not found\n", data->cmd1.str[0]);
 		// free_fields(data);
 		exit(127);
 	}
@@ -99,12 +99,12 @@ int	child_write(t_pipex *data)
 	// ft_printf("Child process 2: pid[1] =	%d\n", getpid());
 	
 	// Check if outfile exists, and create it if it doesn't.
-	if ((data->outfile = open(data->argV[4], O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
+	if ((data->outfile = open(data->argV[4], O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -1)
 	{
 		ft_fprintf(2, "pipex: %s: %s\n", data->argV[4], strerror(errno));
 		ft_close(data->pipe_fd);
 		// free_fields(data);
-		exit(1);
+		exit(127);
 	}
 		// return (perror("Outfile error"), ft_close(data->pipe_fd), 4);
 
@@ -118,7 +118,7 @@ int	child_write(t_pipex *data)
 	// execve(argv[3], argv + 3, NULL);
 	if (execve(data->bin_path2, data->cmd2.str, data->env_vars) == -1)
 	{
-		perror("2nd execve failed");
+		ft_fprintf(2, "pipex: %s: command not found\n", data->cmd2.str[0]);
 		free_fields(data);
 		exit(127);
 	}
