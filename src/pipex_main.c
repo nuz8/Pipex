@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:20:42 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/08 01:04:49 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/08 01:26:56 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ int	main(int argc, char **argv, char **envp)
 	if ((data->infile = open(argv[1], O_RDONLY)) == -1)
 	{
 		// perror("infile:");
-		ft_fprintf(2, "infile: %s\n", strerror(errno));
+		ft_fprintf(2, "pipex: input: %s\n", strerror(errno));
 	}
 	if ((data->outfile = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -1)
 	{
 		// perror("outfile:");
-		ft_fprintf(2, "outfile: %s\n", strerror(errno));
+		ft_fprintf(2, "pipex: output: %s\n", strerror(errno));
 		close(data->infile);
 		exit(EXIT_FAILURE);
 	}

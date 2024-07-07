@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 19:30:19 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/08 01:04:01 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/08 01:41:11 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,22 @@ void	child_read(t_pipex *data)
 	// Child process 1
 
 	close(data->pipe_fd[0]);
-	dup2(data->infile, STDIN_FILENO);
-	dup2(data->pipe_fd[1], STDOUT_FILENO);
+	if ((dup2(data->infile, STDIN_FILENO)) == -1)
+	{
+		// perror("dup2");
+		close(data->infile);
+		close(data->pipe_fd[1]);
+		free_fields(data);
+		exit(127);
+	}
+	if ((dup2(data->pipe_fd[1], STDOUT_FILENO)) == -1)
+	{
+		// perror("dup2");
+		close(data->infile);
+		close(data->pipe_fd[1]);
+		free_fields(data);
+		exit(127);
+	}
 	close(data->infile);
 	close(data->pipe_fd[1]);
 
@@ -102,8 +116,22 @@ void	child_write(t_pipex *data)
 	// Child process 2
 
 	close(data->pipe_fd[1]);
-	dup2(data->pipe_fd[0], STDIN_FILENO);
-	dup2(data->outfile, STDOUT_FILENO);
+	if ((dup2(data->pipe_fd[0], STDIN_FILENO)) == -1)
+	{
+		perror("dup2");
+		close(data->outfile);
+		close(data->pipe_fd[0]);
+		free_fields(data);
+		exit(127);
+	}
+	if ((dup2(data->outfile, STDOUT_FILENO)) == -1)
+	{
+		perror("dup2");
+		close(data->outfile);
+		close(data->pipe_fd[0]);
+		free_fields(data);
+		exit(127);
+	}
 	close(data->outfile);
 	close(data->pipe_fd[0]);
 	
