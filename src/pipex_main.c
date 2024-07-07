@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:20:42 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/06 18:48:13 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/08 01:04:49 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,20 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 5)
 		return (write(2, "Usage: ./pipex infile cmd1 cmd2 outfile\n", 40), 1);
-	exit_val = 0;
 	data = malloc(1 * sizeof(t_pipex));
+	if ((data->infile = open(argv[1], O_RDONLY)) == -1)
+	{
+		// perror("infile:");
+		ft_fprintf(2, "infile: %s\n", strerror(errno));
+	}
+	if ((data->outfile = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -1)
+	{
+		// perror("outfile:");
+		ft_fprintf(2, "outfile: %s\n", strerror(errno));
+		close(data->infile);
+		exit(EXIT_FAILURE);
+	}
+	exit_val = 0;
 	initialize_fields(data);
 	data->argC = argc;
 	data->argV = argv;
@@ -60,8 +72,7 @@ int	main(int argc, char **argv, char **envp)
 	if ((exit_val = pipe(data->pipe_fd)) != 0)
 		return (perror("Pipe error"), free_fields(data), exit_val);
 	exit_val = initiate_children(data);
-	// ft_printf("%d\n", exit_val);
-	// if (exit_val != 0)
-	// 	return (free_fields(data), exit_val);
-	return (free_fields(data), exit_val);
+
+	// return (free_fields(data), exit_val);
+	return (0);
 }

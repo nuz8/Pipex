@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:31:21 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/06 19:02:11 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/07 22:19:34 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ size_t	f_word_len(char const *str, char stop);
 int		f_alloc_words(char **parsed, char const *s);
 
 // children.c
-int		child_read(t_pipex *data);
-int		child_write(t_pipex *data);
+void	child_read(t_pipex *data);
+void	child_write(t_pipex *data);
 int		initiate_children(t_pipex *data);
 
 // utilities.c
