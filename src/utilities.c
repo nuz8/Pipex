@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:30:53 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/05 04:48:09 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/08 03:50:15 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ int	free_fields(t_pipex *data)
 	if (data->bin_path2)
 		ft_free_safe((void **)&(data->bin_path2));
 
-	if (data)
-		ft_free_safe((void **)&data);
+	// if (data)
+	// 	ft_free_safe((void **)&data);
 
 	return (0);
 }

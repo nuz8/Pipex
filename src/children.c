@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 19:30:19 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/08 01:41:11 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/08 04:40:41 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	initiate_children(t_pipex *data)
 		perror("Fork1 error");
 		ft_close(data->pipe_fd);
 		free_fields(data);
-		return (127);
+		exit(EXIT_FAILURE);
 	}
 	if (pid[0] == 0)
 		child_read(data);
@@ -41,7 +41,7 @@ int	initiate_children(t_pipex *data)
 		perror("Fork2 error");
 		ft_close(data->pipe_fd);
 		free_fields(data);
-		return (127);
+		exit(EXIT_FAILURE);
 	}
 	if (pid[1] == 0)
 		child_write(data);
@@ -49,8 +49,10 @@ int	initiate_children(t_pipex *data)
 	ft_close(data->pipe_fd);
 	free_fields(data);
 	waitpid(pid[1], &ec1, 0);
+	// if (WIFEXITED(ec1))
+	// 	exit(WEXITSTATUS(ec1));
 	if (WIFEXITED(ec1))
-		exit(WEXITSTATUS(ec1));
+		data->status = WEXITSTATUS(ec1);
 	
 	// waitpid(pid[0], &(ec[0]), 0);
 	// waitpid(pid[1], &(ec[1]), 0);
@@ -70,7 +72,7 @@ int	initiate_children(t_pipex *data)
 	// 	data->status = e[1];
 	// else
 	// 	data->status = 0;
-	return (0);
+	return (data->status);
 }
 
 // Using this:
