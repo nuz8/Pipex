@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 22:07:34 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/09 04:09:43 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/09 04:53:11 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		get_binaries(t_input *ag, t_pipex *data);
 char	**get_paths(char **envp);
-int		remove_path(t_str_list *cmd);
 char	*get_binary_path(t_str_list *cmd, char **paths);
+int		remove_path(t_str_list *cmd);
 
 int	get_binaries(t_input *ag, t_pipex *data)
 {
@@ -23,22 +23,16 @@ int	get_binaries(t_input *ag, t_pipex *data)
 	{
 		perror("Couldn't get paths");
 		free_exit(data, EXIT_FAILURE);
-		// free_fields(data);
-		// exit(EXIT_FAILURE);
 	}
 	if (!(data->cmd1.str = ft_parse(ag->argV[2])))
 	{
 		perror("Parse error cmd1");
 		free_exit(data, EXIT_FAILURE);
-		// free_fields(data);
-		// exit(EXIT_FAILURE);
 	}
 	if (!(data->cmd2.str = ft_parse(ag->argV[3])))
 	{
 		perror("Parse error cmd2");
 		free_exit(data, EXIT_FAILURE);
-		// free_fields(data);
-		// exit (EXIT_FAILURE);
 	}
 	data->bin_path1 = get_binary_path(&(data->cmd1), data->paths);
 	if (!(data->bin_path2 = get_binary_path(&(data->cmd2), data->paths)))
@@ -72,6 +66,29 @@ char	**get_paths(char **envp)
 	return (free(path), paths);
 }
 
+char	*get_binary_path(t_str_list *cmd, char **paths)
+{
+	char	*tmp[3];
+
+	if (!(tmp[0] = ft_strdup(*(cmd->str))))
+			return (perror("ft_strdup-malloc failed:"), NULL);
+	if (access(tmp[0], F_OK) == 0)
+		return (tmp[0]);
+	while (*paths)
+	{
+		if (!(tmp[1] = ft_strjoin(*paths, "/")))
+			return (free(tmp[0]), perror("tmp1-m failed:"), NULL);
+		if (!(tmp[2] = ft_strjoin(tmp[1], *(cmd->str))))
+			return (free(tmp[0]), free(tmp[1]), perror("tmp2-m failed:"), NULL);
+		free(tmp[1]);
+		if (access(tmp[2], F_OK) == 0)
+			return (free(tmp[0]), tmp[2]);
+		free(tmp[2]);
+		paths++;
+	}
+	return (tmp[0]);
+}
+
 int	remove_path(t_str_list *cmd)
 {
 	char	*cmd_with_path;
@@ -98,27 +115,4 @@ int	remove_path(t_str_list *cmd)
 		*(cmd_wo_path + cmdlen[1]) = *(cmd_with_path + --cmdlen[0]);
 	ft_free_safe((void **)(&(cmd->str[0])));
 	return (cmd->str[0] = cmd_wo_path, 0);
-}
-
-char	*get_binary_path(t_str_list *cmd, char **paths)
-{
-	char	*tmp[3];
-
-	if (!(tmp[0] = ft_strdup(*(cmd->str))))
-			return (perror("ft_strdup-malloc failed:"), NULL);
-	if (access(tmp[0], F_OK) == 0)
-		return (tmp[0]);
-	while (*paths)
-	{
-		if (!(tmp[1] = ft_strjoin(*paths, "/")))
-			return (free(tmp[0]), perror("tmp1-m failed:"), NULL);
-		if (!(tmp[2] = ft_strjoin(tmp[1], *(cmd->str))))
-			return (free(tmp[0]), free(tmp[1]), perror("tmp2-m failed:"), NULL);
-		free(tmp[1]);
-		if (access(tmp[2], F_OK) == 0)
-			return (free(tmp[0]), tmp[2]);
-		free(tmp[2]);
-		paths++;
-	}
-	return (tmp[0]);
 }

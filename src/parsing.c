@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:56:13 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/09 04:15:46 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/09 04:43:18 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	**ft_parse(char const *s)
 	parsed[wcount] = NULL;
 	if (f_alloc_words(parsed, s) == -1)
 		return (NULL);
-		// return (ft_free2d_safe(&parsed), NULL);
 	return (parsed);
 }
 
@@ -66,7 +65,6 @@ size_t	f_word_len(char const *str, char stop)
 	return (i);
 }
 
-// line is the outer loop-counter (i), and word is the inner loop-counter (j)
 int	f_alloc_words(char **parsed, char const *s)
 {
 	size_t	line;

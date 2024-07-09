@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 22:19:54 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/05 02:55:06 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/09 04:44:28 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	ft_free2d(char **memory)
 	size_t	i;
 
 	i = 0;
-	// ft_printf("Free2d memory (**) at %p\n", memory);
-	// ft_printf("Free2d *memory (*) at %p\n\n", *memory);
 	while (memory[i] != NULL)
 	{
 		free(memory[i]);
@@ -44,8 +42,6 @@ void	ft_free_safe(void **mem)
 		return ;
 	else
 	{
-		// ft_printf("Free_safe memory (**) at %p\n", memory);
-		// ft_printf("Free_safe *memory (*) at %p\n\n", *memory);
 		free(*memory);
 		(*memory) = NULL;
 	}
@@ -65,8 +61,6 @@ void	ft_free2d_safe(char ***memory)
 	if ((*memory) == NULL)
 		return ;
 	i = 0;
-	// ft_printf("Free2dsafe memory (***) at %p\n", memory);
-	// ft_printf("Free2dsafe *memory (**) at %p\n\n", *memory);
 	while ((*memory) && (*memory)[i] != NULL)
 	{
 		free((*memory)[i]);
