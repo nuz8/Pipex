@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 19:30:19 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/09 04:57:54 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/09 23:14:02 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,19 @@ int		initiate_children(t_input *ag, t_pipex *data);
 void	child_read(t_input *ag, t_pipex *data);
 void	child_write(t_input *ag, t_pipex *data);
 
-// data.pipe_fd[0]	-	read end
-// data.pipe_fd[1]	-	write end
-
 int	initiate_children(t_input *ag, t_pipex *data)
 {
 	pid_t	pid[2];
 	int		ec;
 
-	if ((pid[0] = fork()) == -1)
-	{
-		perror("Fork1 error");
-		close_free_exit(data, EXIT_FAILURE);
-	}
+	pid[0] = fork();
+	if (pid[0] == -1)
+		close_free_exit("Fork1 error", data, EXIT_FAILURE);
 	if (pid[0] == 0)
 		child_read(ag, data);
-	if ((pid[1] = fork()) == -1)
-	{
-		perror("Fork2 error");
-		close_free_exit(data, EXIT_FAILURE);
-	}
+	pid[1] = fork();
+	if (pid[1] == -1)
+		close_free_exit("Fork2 error", data, EXIT_FAILURE);
 	if (pid[1] == 0)
 		child_write(ag, data);
 	ft_close_pipe(data->pipe_fd);

@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:56:13 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/09 04:43:18 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/09 22:58:52 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,41 +93,3 @@ int	f_alloc_words(char **parsed, char const *s)
 	}
 	return (0);
 }
-
-// int	main(void)
-// {
-// 	char	*str;
-// 	int		i;
-// 	int		wcount;
-// 	size_t	*wordlens;
-// 	char	**parsed_str;
-// 	char	**ps;
-
-// 	// str = ft_strdup("   grep -v \"              this     word  \" and this \'  one right here  \', huh?  ");
-// 	// str = ft_strdup("awk \'$2 == \"console\" {print $3 \" \" $4 \" \" $5}\'");
-// 	str = ft_strdup("awk '\''$2 == \"console\" {print $3 " " $4 " " $5}'\''");
-// 	// str = ft_strdup("Is this \"correctly parsed\" or not?");
-// 	ft_printf("%s\n", str);
-	
-// 	wcount = f_word_count(str);
-// 	wordlens = malloc(wcount * sizeof(size_t));
-// 	// f_word_lengths(str, wordlens);
-// 	ft_printf("%d\n\n", wcount);
-// 	i = 0;
-// 	// while (i < wcount)
-// 	// 	ft_printf("%d\n", wordlens[i++]);
-// 	// ft_printf("\n");
-	
-// 	parsed_str = ft_parse(str);
-// 	ps = parsed_str;
-// 	while (*parsed_str)
-// 	{
-// 		ft_printf(">>%s<<\n", *parsed_str);
-// 		parsed_str++;
-// 	}
-// 	ft_printf("\n");
-
-// 	free(str);
-// 	ft_free2d(ps);
-// 	return (0);
-// }
