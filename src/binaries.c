@@ -6,36 +6,39 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 22:07:34 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/08 04:59:16 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/09 04:09:43 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-int		get_binaries(t_pipex *data);
+int		get_binaries(t_input *ag, t_pipex *data);
 char	**get_paths(char **envp);
 int		remove_path(t_str_list *cmd);
 char	*get_binary_path(t_str_list *cmd, char **paths);
 
-int	get_binaries(t_pipex *data)
+int	get_binaries(t_input *ag, t_pipex *data)
 {
-	if (!(data->paths = get_paths(data->env_vars)))
+	if (!(data->paths = get_paths(ag->env_vars)))
 	{
 		perror("Couldn't get paths");
-		free_fields(data);
-		exit(EXIT_FAILURE);
+		free_exit(data, EXIT_FAILURE);
+		// free_fields(data);
+		// exit(EXIT_FAILURE);
 	}
-	if (!(data->cmd1.str = ft_parse(data->argV[2])))
+	if (!(data->cmd1.str = ft_parse(ag->argV[2])))
 	{
 		perror("Parse error cmd1");
-		free_fields(data);
-		exit(EXIT_FAILURE);
+		free_exit(data, EXIT_FAILURE);
+		// free_fields(data);
+		// exit(EXIT_FAILURE);
 	}
-	if (!(data->cmd2.str = ft_parse(data->argV[3])))
+	if (!(data->cmd2.str = ft_parse(ag->argV[3])))
 	{
 		perror("Parse error cmd2");
-		free_fields(data);
-		exit (EXIT_FAILURE);
+		free_exit(data, EXIT_FAILURE);
+		// free_fields(data);
+		// exit (EXIT_FAILURE);
 	}
 	data->bin_path1 = get_binary_path(&(data->cmd1), data->paths);
 	if (!(data->bin_path2 = get_binary_path(&(data->cmd2), data->paths)))

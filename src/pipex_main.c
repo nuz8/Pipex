@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:20:42 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/08 05:04:14 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/09 03:52:27 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@
 // 	// 	ft_printf(">>%s<<\n", argv[i++]);
 
 // 	if (argc != 5)
-// 		return (write(2, "Usage: ./pipex infile cmd1 cmd2 outfile\n", 40), 1);
+// 		return (write(2, "Usage: ./pipex infl cmd1 cmd2 outfl\n", 40), 1);
 // 	exit = 0;
 // 	initialize_fields(&data);
-// 	data.argC = argc;
-// 	data.argV = argv;
-// 	data.env_vars = envp;
+// 	ag.argC = argc;
+// 	ag.argV = argv;
+// 	ag.env_vars = envp;
 // 	exit = get_binaries(&data);
 // 	if (exit != 0)
 // 		return (exit);
@@ -47,25 +47,25 @@
 // 	int		exit_val;
 
 // 	if (argc != 5)
-// 		return (write(2, "Usage: ./pipex infile cmd1 cmd2 outfile\n", 40), 1);
+// 		return (write(2, "Usage: ./pipex infl cmd1 cmd2 outfl\n", 40), 1);
 // 	data = malloc(1 * sizeof(t_pipex));
-// 	if ((data->infile = open(argv[1], O_RDONLY)) == -1)
+// 	if ((data->infl = open(argv[1], O_RDONLY)) == -1)
 // 	{
-// 		// perror("infile:");
+// 		// perror("infl:");
 // 		ft_fprintf(2, "pipex: input: %s\n", strerror(errno));
 // 	}
-// 	if ((data->outfile = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -1)
+// 	if ((data->outfl = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -1)
 // 	{
-// 		// perror("outfile:");
+// 		// perror("outfl:");
 // 		ft_fprintf(2, "pipex: output: %s\n", strerror(errno));
-// 		close(data->infile);
+// 		close(data->infl);
 // 		exit(EXIT_FAILURE);
 // 	}
 // 	exit_val = 0;
 // 	initialize_fields(data);
-// 	data->argC = argc;
-// 	data->argV = argv;
-// 	data->env_vars = envp;
+// 	ag->argC = argc;
+// 	ag->argV = argv;
+// 	ag->env_vars = envp;
 // 	exit_val = get_binaries(data);
 // 	if (exit_val != 0)
 // 		return (exit_val);
@@ -80,26 +80,27 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	data;
+	t_input	ag;
 
 	if (argc != 5)
-		return (write(2, "Usage: ./pipex infile cmd1 cmd2 outfile\n", 40), 1);
-	if ((data.infile = open(argv[1], O_RDONLY)) == -1)
+		return (write(2, "Usage: ./pipex infl cmd1 cmd2 outfl\n", 40), 1);
+	if ((data.infl = open(argv[1], O_RDONLY)) == -1)
 		ft_fprintf(2, "pipex: input: %s\n", strerror(errno));
-	if ((data.outfile = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -1)
+	if ((data.outfl = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -1)
 	{
 		ft_fprintf(2, "pipex: output: %s\n", strerror(errno));
-		close(data.infile);
+		close(data.infl);
 		exit(EXIT_FAILURE);
 	}
 	initialize_fields(&data);
-	data.argC = argc;
-	data.argV = argv;
-	data.env_vars = envp;
-	data.status = get_binaries(&data);
-	if (data.status != 0)
-		return (free_fields(&data), data.status);
+	ag.argC = argc;
+	ag.argV = argv;
+	ag.env_vars = envp;
+	data.exit_code = get_binaries(&ag, &data);
+	if (data.exit_code != 0)
+		return (free_fields(&data), data.exit_code);
 	if (pipe(data.pipe_fd) != 0)
 		return (perror("Pipe error"), free_fields(&data), 1);
-	data.status = initiate_children(&data);
-	return (data.status);
+	data.exit_code = initiate_children(&ag, &data);
+	return (data.exit_code);
 }

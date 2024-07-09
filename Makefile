@@ -6,7 +6,7 @@
 #    By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 14:30:19 by pamatya           #+#    #+#              #
-#    Updated: 2024/07/04 02:48:52 by pamatya          ###   ########.fr        #
+#    Updated: 2024/07/08 21:53:00 by pamatya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,9 @@ LIB		=	libft.a
 EXE_PATH=	.
 # EXE_PATH=	./bin
 
-# INFILE	=	./io_files/deepthought.txt
-INFILE	=	./io_files/infile.txt
-OUTFILE	=	./io_files/outfile.txt
+# infl	=	./io_files/deepthought.txt
+infl	=	./io_files/infl.txt
+outfl	=	./io_files/outfl.txt
 
 CMD1	=	cat
 CMD2	=	"grep exe"
@@ -87,7 +87,7 @@ fcleanx: cleanx
 	$(MAKE) -sC $(DIR) fclean
 
 exe:
-	$(EXE_PATH)/$(NAME) $(INFILE) $(CMD1) $(CMD2) $(OUTFILE)
+	$(EXE_PATH)/$(NAME) $(infl) $(CMD1) $(CMD2) $(outfl)
 
 exe2:
 	$(CC) $(CFLAGS) ./src/pipex2.c -o ./bin/pipex2

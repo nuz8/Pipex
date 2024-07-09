@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   binaries.c                                         :+:      :+:    :+:   */
+/*   binaries_1st_paco_line_ok.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 22:07:34 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/04 04:12:20 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/08 22:03:58 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_binary_path(t_str_list *cmd, char **paths);
 
 int	get_binaries(t_pipex *data)
 {
-	data->paths = get_paths(data->env_vars);
+	data->paths = get_paths(ag->env_vars);
 	if (!data->paths)
 	{
 		perror("Couldn't get paths");
@@ -33,7 +33,7 @@ int	get_binaries(t_pipex *data)
 	}
 		// return (perror("Couldn't get paths"), 2);
 	
-	data->cmd1.str = ft_parse(data->argV[2]);
+	data->cmd1.str = ft_parse(ag->argV[2]);
 	if (!data->cmd1.str)
 	{
 		free_fields(data);
@@ -42,7 +42,7 @@ int	get_binaries(t_pipex *data)
 	}
 		// return (free_fields(data), perror("Parse error cmd1"), 2);
 
-	data->cmd2.str = ft_parse(data->argV[3]);
+	data->cmd2.str = ft_parse(ag->argV[3]);
 	if (!data->cmd2.str)
 	{
 		free_fields(data);
@@ -81,11 +81,11 @@ int	get_binaries(t_pipex *data)
 // {
 // 	int		i;
 	
-// 	data->paths = get_paths(data->env_vars);
+// 	data->paths = get_paths(ag->env_vars);
 // 	if (!data->paths)
 // 		return (perror("Couldn't get paths"), 2);
 	
-// 	data->cmd1.str = ft_parse(data->argV[2]);
+// 	data->cmd1.str = ft_parse(ag->argV[2]);
 // 	if (!data->cmd1.str)
 // 		return (free_fields(data), perror("Parse error cmd1"), 2);
 // 	i = 0;
@@ -93,7 +93,7 @@ int	get_binaries(t_pipex *data)
 // 		ft_printf(">>%s<<\n", *(data->cmd1.str + i++));
 // 	ft_printf("\n");
 
-// 	data->cmd2.str = ft_parse(data->argV[3]);
+// 	data->cmd2.str = ft_parse(ag->argV[3]);
 // 	if (!data->cmd2.str)
 // 		return (free_fields(data), perror("Parse error cmd1"), 2);
 // 	i = 0;

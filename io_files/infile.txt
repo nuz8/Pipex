@@ -10,7 +10,7 @@ drwxr-xr-x  48 pamatya  2024_heilbronn   1632 May 28 01:51 Libft
 -rw-r--r--   1 pamatya  2024_heilbronn   1841 May 29 02:37 ft_execute.c
 -rw-r--r--   1 pamatya  2024_heilbronn   1817 May 29 00:34 ft_execute2.c
 drwxr-xr-x   7 pamatya  2024_heilbronn    238 May 28 01:51 ft_printf
--rw-r--r--   1 pamatya  2024_heilbronn    107 May 27 23:29 infile
+-rw-r--r--   1 pamatya  2024_heilbronn    107 May 27 23:29 infl
 -rwxr-xr-x   1 pamatya  2024_heilbronn     20 May 29 02:37 next_file.txt
 -rw-r--r--   1 pamatya  2024_heilbronn   2627 May 28 23:40 pipex.c
 -rw-r--r--   1 pamatya  2024_heilbronn   1223 May 28 01:45 pipex.h

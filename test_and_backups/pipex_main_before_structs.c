@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:20:42 by pamatya           #+#    #+#             */
-/*   Updated: 2024/06/21 22:42:09 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/08 22:41:20 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	main(int argc, char **argv, char **envp)
 {
 	pid_t		fd[2];
-	int		infile;
-	int		outfile;
+	int		infl;
+	int		outfl;
 	int		pid1;
 	int		pid2;
 	char	**paths;
@@ -28,8 +28,8 @@ int	main(int argc, char **argv, char **envp)
 
 	// Check if the number of arguments to be accepted is this
 	if (argc != 5)
-		return (write(2, "Usage: ./pipex infile cmd1 cmd2 outfile\n", 40), 1);
-		// return (ft_printf("Usage: ./pipex infile cmd1 cmd2 outfile\n"), 1);
+		return (write(2, "Usage: ./pipex infl cmd1 cmd2 outfl\n", 40), 1);
+		// return (ft_printf("Usage: ./pipex infl cmd1 cmd2 outfl\n"), 1);
 	
 	paths = get_paths(envp);
 	if (!paths)
@@ -69,20 +69,20 @@ int	main(int argc, char **argv, char **envp)
 	// fd[1]	-	write end
 	
 	if ((pid1 = fork()) == -1)
-		return (write(2, "Couldn't fork\n", 14), ft_close(fd), 3);
+		return (write(2, "Couldn't fork\n", 14), ft_close_pipe(fd), 3);
 
 	if (pid1 == 0)
 	{
 		// Child process 1
-		// Code for infile with input redirection, and check if it can be opened
-		if ((infile = open(argv[1], O_RDONLY)) == -1)
-			return (write(2, "Couldn't open infile\n", 21), ft_close(fd), 2);
+		// Code for infl with input redirection, and check if it can be opened
+		if ((infl = open(argv[1], O_RDONLY)) == -1)
+			return (write(2, "Couldn't open infl\n", 21), ft_close_pipe(fd), 2);
 
-		// Code for input/output redirection with infile
+		// Code for input/output redirection with infl
 		close(fd[0]);
-		dup2(infile, STDIN_FILENO);
+		dup2(infl, STDIN_FILENO);
 		dup2(fd[1], STDOUT_FILENO);
-		close(infile);
+		close(infl);
 		close(fd[1]);
 
 		// execve(argv[2], argv + 2, NULL);
@@ -90,25 +90,25 @@ int	main(int argc, char **argv, char **envp)
 		ft_printf("The first command executed correctly\n");
 	}
 	if ((pid2 = fork()) == -1)
-		return (write(2, "Couldn't fork\n", 14), ft_close(fd), 3);
+		return (write(2, "Couldn't fork\n", 14), ft_close_pipe(fd), 3);
 	if (pid2 == 0)
 	{
 		// Child process 2
-		// Check if outfile exists, and create it if it doesn't.
-		if ((outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
-			return (write(2, "Couldn't open outfile\n", 22), ft_close(fd), 4);
+		// Check if outfl exists, and create it if it doesn't.
+		if ((outfl = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
+			return (write(2, "Couldn't open outfl\n", 22), ft_close_pipe(fd), 4);
 
-		// Code for outfile with input/output redirection
+		// Code for outfl with input/output redirection
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
-		dup2(outfile, STDOUT_FILENO);
-		close(outfile);
+		dup2(outfl, STDOUT_FILENO);
+		close(outfl);
 		close(fd[0]);
 
 		// execve(argv[3], argv + 3, NULL);
 		execve(bin_path2, cmd2, envp);
 	}
-	ft_close(fd);
+	ft_close_pipe(fd);
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);
 	return (0);

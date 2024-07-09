@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:31:21 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/07 22:19:34 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/09 04:19:27 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@
 // # include <sys/types.h>	// Included for umask
 // # include <sys/stat.h>	// Included for umask
 
+typedef struct	s_input
+{
+	int			argC;
+	char		**argV;
+	char		**env_vars;
+}				t_input;
+
 typedef struct	s_str_list
 {
 	char				**str;
@@ -36,25 +43,22 @@ typedef struct	s_str_list
 
 typedef struct	s_pipex
 {
-	int			argC;
-	char		**argV;
-	char		**env_vars;
 	char		**paths;
-	int			infile;
-	int			outfile;
+	int			infl;
+	int			outfl;
 	t_str_list	cmd1;
 	t_str_list	cmd2;
 	char		*bin_path1;
 	char		*bin_path2;
 	int			pipe_fd[2];
-	int			status;
+	int			exit_code;
 }				t_pipex;
 
 // pipex_main.c
 // int		main(int argc, char **argv, char **envp);
 
 // binaries.c
-int		get_binaries(t_pipex *data);
+int		get_binaries(t_input *ag, t_pipex *data);
 char	**get_paths(char **envp);
 // int		remove_path(t_str_list *cmd);
 
@@ -69,13 +73,15 @@ size_t	f_word_len(char const *str, char stop);
 int		f_alloc_words(char **parsed, char const *s);
 
 // children.c
-void	child_read(t_pipex *data);
-void	child_write(t_pipex *data);
-int		initiate_children(t_pipex *data);
+int		initiate_children(t_input *ag, t_pipex *data);
+void	child_read(t_input *ag, t_pipex *data);
+void	child_write(t_input *ag, t_pipex *data);
 
 // utilities.c
-int		initialize_fields(t_pipex *data);
-int		free_fields(t_pipex *data);
-void	ft_close(int fd[]);
+void	initialize_fields(t_pipex *data);
+void	free_fields(t_pipex *data);
+void	ft_close_pipe(int fd[]);
+void	free_exit(t_pipex *data, int ec);
+void	close_free_exit(t_pipex *data, int ec);
 
 #endif
