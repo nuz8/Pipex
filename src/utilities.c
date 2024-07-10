@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:30:53 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/09 23:41:42 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/10 02:25:04 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void	initialize_fields(t_pipex *data)
 {
 	data->paths = NULL;
 	data->cmd1.str = NULL;
+	data->cmd1.next = NULL;
 	data->cmd2.str = NULL;
+	data->cmd2.next = NULL;
 	data->bin_path1 = NULL;
 	data->bin_path2 = NULL;
 	data->exit_code = 0;
