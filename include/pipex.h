@@ -6,7 +6,7 @@
 /*   By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 21:31:21 by pamatya           #+#    #+#             */
-/*   Updated: 2024/07/09 23:32:09 by pamatya          ###   ########.fr       */
+/*   Updated: 2024/07/10 02:12:51 by pamatya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,13 @@
 # define PIPEX_H
 
 # include "../lib/includes/libft.h"
-
 # include <fcntl.h>
-// # include <sys/types.h>
-// # include <sys/uio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
 # include <sys/wait.h>
-
 # include <errno.h>
-// # include <sys/types.h>	// Included for umask
-// # include <sys/stat.h>	// Included for umask
 
 typedef struct s_input
 {
