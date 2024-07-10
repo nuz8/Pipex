@@ -6,7 +6,7 @@
 #    By: pamatya <pamatya@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/11 14:30:19 by pamatya           #+#    #+#              #
-#    Updated: 2024/07/09 23:50:31 by pamatya          ###   ########.fr        #
+#    Updated: 2024/07/10 01:58:30 by pamatya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,11 +38,13 @@ $(LIB):
 
 clean:
 	$(RM) $(OBJS)
+	$(MAKE) -sC $(DIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
 	$(RM) $(PIP_LIB)
 	$(RM) $(DIR)/$(LIB)
+	$(MAKE) -sC $(DIR) fclean
 
 re: fclean
 	$(MAKE) all
